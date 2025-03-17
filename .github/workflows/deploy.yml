@@ -1,0 +1,44 @@
+# name: Composer Update
+
+# on:
+#   push:
+#     branches:
+#       - main  # Or your default branch
+#   schedule:
+#     - cron: '0 0 * * 0'  # Runs weekly (every Sunday at midnight)
+
+# jobs:
+#   update:
+#     runs-on: ubuntu-latest
+#     steps:
+#       # Checkout the repository
+#       - name: Checkout code
+#         uses: actions/checkout@v3
+
+#       # Set up PHP with Composer
+#       - name: Set up PHP
+#         uses: shivammathur/setup-php@v2
+#         with:
+#           php-version: '8.1'
+#           extensions: mbstring, bcmath, zip
+
+#       # Install Composer
+#       - name: Install Composer
+#         run: curl -sS https://getcomposer.org/installer | php
+
+#       # Install dependencies
+#       - name: Install dependencies
+#         run: php composer.phar install --no-interaction --prefer-dist --optimize-autoloader
+
+#       # Run any other tasks like tests (optional)
+#       - name: Run tests (optional)
+#         run: php artisan test
+
+#       # Push the updated composer.lock if dependencies are updated
+#       - name: Commit and push if composer.lock changes
+#         run: |
+#           git config --global user.name 'GitHub Actions'
+#           git config --global user.email 'actions@github.com'
+#           git add composer.lock
+#           git commit -m 'Update composer.lock' || echo "No changes"
+#           git push
