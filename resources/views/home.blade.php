@@ -2,6 +2,9 @@
 
 @section('content')
 <section class="hero">
+    {{-- popup notice  --}}
+    <x-pop-up-notice/>
+
     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active" style="background-image: url('{{ asset('assets/images/banner.jpg') }}') ;">
@@ -13,26 +16,7 @@
                                 <div class="divider mb-3"></div>
                                 <span class="text-uppercase text-sm letter-spacing">Bruce Lee
                                 </span>
-                                <h1 class="mb-3 mt-3">If you love life, don’t waste time, for time is what life is made up of</h1>                                        
-                                <p class="mb-4 pr-5">A repudiandae ipsam labore ipsa voluptatum quidem quae laudantium quisquam aperiam maiores sunt fugit, deserunt rem suscipit placeat.</p>
-                                <div class="btn-container ">
-                                    <a href="appoinment.html" target="_blank" class="btn btn-primary">Contact Now <i class="icofont-simple-right ml-2  "></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>    
-            <div class="carousel-item " style="background-image: url('{{ asset('assets/images/banner1.jpg') }}') ;">
-                <div class="hero-background-overlay"></div>
-                <div class="container h-100">
-                    <div class="row align-items-center d-flex h-100">
-                        <div class="col-md-7">
-                            <div class="block" >
-                                <div class="divider mb-3"></div>
-                                <span class="text-uppercase text-sm letter-spacing">Leo Tolstoy, War and Peace</span>
-                                <h1 class="mb-3 mt-3">The two most powerful warriors are patience and time.</h1>
-                                
+                                <h1 class="mb-3 mt-3">If you love life, don’t waste time, for time is what life is made up of</h1>
                                 <p class="mb-4 pr-5">A repudiandae ipsam labore ipsa voluptatum quidem quae laudantium quisquam aperiam maiores sunt fugit, deserunt rem suscipit placeat.</p>
                                 <div class="btn-container ">
                                     <a href="appoinment.html" target="_blank" class="btn btn-primary">Contact Now <i class="icofont-simple-right ml-2  "></i></a>
@@ -42,7 +26,26 @@
                     </div>
                 </div>
             </div>
-                            
+            <div class="carousel-item " style="background-image: url('{{ asset('assets/images/banner1.jpg') }}') ;">
+                <div class="hero-background-overlay"></div>
+                <div class="container h-100">
+                    <div class="row align-items-center d-flex h-100">
+                        <div class="col-md-7">
+                            <div class="block" >
+                                <div class="divider mb-3"></div>
+                                <span class="text-uppercase text-sm letter-spacing">Leo Tolstoy, War and Peace</span>
+                                <h1 class="mb-3 mt-3">The two most powerful warriors are patience and time.</h1>
+
+                                <p class="mb-4 pr-5">A repudiandae ipsam labore ipsa voluptatum quidem quae laudantium quisquam aperiam maiores sunt fugit, deserunt rem suscipit placeat.</p>
+                                <div class="btn-container ">
+                                    <a href="appoinment.html" target="_blank" class="btn btn-primary">Contact Now <i class="icofont-simple-right ml-2  "></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="carousel-item" style="background-image: url('{{ asset('assets/images/banner24.jpg') }}') ;">
                 <div class="hero-background-overlay"></div>
                 <div class="container align-items-center d-flex h-100">
@@ -53,7 +56,7 @@
                                     <div class="divider mb-3"></div>
                                     <span class="text-uppercase text-sm letter-spacing">Stephen R. Covey</span>
                                     <h1 class="mb-3 mt-3">The key is in not spending time, but in investing it.</h1>
-                                    
+
                                     <p class="mb-4 pr-5">A repudiandae ipsam labore ipsa voluptatum quidem quae laudantium quisquam aperiam maiores sunt fugit, deserunt rem suscipit placeat.</p>
                                     <div class="btn-container ">
                                         <a href="appoinment.html" target="_blank" class="btn btn-primary">Contact Now <i class="icofont-simple-right ml-2  "></i></a>
@@ -63,8 +66,8 @@
                         </div>
                     </div>
                 </div>
-            </div>                    
-                          
+            </div>
+
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -92,7 +95,7 @@
                 <div class="image-red-background">
                     <img src="{{ asset('assets/images/about-us.jpg') }}" alt="" class="w-100">
                 </div>
-                
+
             </div>
         </div>
     </div>
@@ -124,11 +127,11 @@
                         </div>
                         <a href="{{ url('/services/detail/'.$service->id) }}" class="btn btn-primary mt-4">Details <i class="fa-solid fa-angle-right"></i></a>
                     </div>
-                </div>   
+                </div>
                 @endforeach
-                @endif               
+                @endif
             </div>
-        </div>                
+        </div>
     </div>
 </section>
 
@@ -136,9 +139,9 @@
     <div class="hero-background-overlay"></div>
     <div class="container">
        <div class="help-container">
-            <h1 class="title">Do you need help?</h1>
-            <p class="card-text mt-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi ipsum, odit velit exercitationem praesentium error id iusto dolorem expedita nostrum eius atque? Aliquam ab reprehenderit animi sapiente quasi, voluptate dolorum?</p>
-            <a href="{{ url('/contact') }}" class="btn btn-primary mt-3">Call Us Now <i class="fa-solid fa-angle-right"></i></a>
+            <h1 class="title"> Innovating the Future with Technology</h1>
+            <p class="card-text mt-3">At Realm Infotech, we specialize in cutting-edge IT solutions, including web development</p>
+            <a href="{{ url('/contact') }}" class="btn btn-primary mt-3">Reach out <i class="fa-solid fa-angle-right"></i></a>
        </div>
     </div>
 </section>

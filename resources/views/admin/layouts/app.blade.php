@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="_token" content="{{ csrf_token() }}">
 
-        <title>Laravel Web App | Dashboard</title>
+        <title>{{ get_website_title() }} | Dashboard</title>
         <!-- Google Font: Source Sans Pro -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
         <link rel="stylesheet" href="{{ asset('admin_assets/assets/plugins/fontawesome-free/css/all.min.css') }}">
@@ -14,6 +14,7 @@
         <link rel="stylesheet" href="{{ asset('admin_assets/assets/plugins/dropzone/dropzone.css') }}">
         <link rel="stylesheet" href="{{ asset('admin_assets/assets/plugins/jquery-ui/jquery-ui.min.css') }}">
         <link rel="stylesheet" href="{{ asset('admin_assets/assets/css/custom.css') }}">
+        @stack('styles')
     </head>
     <body class="hold-transition sidebar-mini layout-fixed">
         <div class="wrapper">
@@ -139,5 +140,8 @@
         </script>
 
         @yield('extraJs')
+        @stack('scripts')
     </body>
+
+
 </html>

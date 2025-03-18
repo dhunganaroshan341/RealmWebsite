@@ -5,15 +5,23 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\TempFile;
 use Illuminate\Http\Request;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 
 class TempImageController extends Controller
 {
+    protected $imageManager;
+
+public function __construct()
+{
+    $this->imageManager = new ImageManager(new Driver());
+}
     public function upload(Request $request) {
-        
+
         $temp = new TempFile;
         $temp->name = 'TEMP VALUE';
         $temp->save(); // This will create a blank entry in DB
-        
+
         $image = $request->file('file');
 
         $destinationPath = './uploads/temp/';

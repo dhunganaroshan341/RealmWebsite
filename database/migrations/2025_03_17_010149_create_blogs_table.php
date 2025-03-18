@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->string('name')->nullable();
             $table->string('slug', 50)->nullable();
             $table->string('short_desc')->nullable();
-            $table->text('description')->nullable();
+            $table->longText('description')->nullable();
             $table->string('image', 50)->nullable();
             $table->tinyInteger('status');
             $table->timestamps();

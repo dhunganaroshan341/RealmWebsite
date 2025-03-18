@@ -28,7 +28,8 @@
 
                 <div class="about-block">
                     <h1 class="title-color mb-3">{{ $page->name??"static-page-name" }}</h1>
-                    {!! $page->content??"static-page-content" !!}
+                    {!! $page->content ?? "static-page-content" !!}
+
                     {{-- <p>This is a great space to write long text about your company and your services. You can use this space to go into a little more detail about your company. Talk about your team and what services you provide. Tell your visitors the story of how you came up with the idea for your business and what makes you different from your competitors. Make your company stand out and show your visitors who you are.</p>
                     <p>This is a great space to write long text about your company and your services. You can use this space to go into a little more detail about your company. Talk about your team and what services you provide. Tell your visitors the story of how you came up with the idea for your business and what makes you different from your competitors. Make your company stand out and show your visitors who you are.</p> --}}
                 </div>

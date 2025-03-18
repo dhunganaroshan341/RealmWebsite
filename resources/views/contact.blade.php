@@ -11,14 +11,14 @@
                         <div class="col-md-12">
                             <div class="block text-center">
                                 <span class="text-uppercase text-sm letter-spacing"></span>
-                                <h1 class="mb-3 mt-3 text-center">Contact us</h1>        
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>                                                                        
+                                <h1 class="mb-3 mt-3 text-center">Contact us</h1>
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>                
+        </div>
     </div>
 </section>
 
@@ -44,7 +44,7 @@
             <div class="col-lg-4 mt-lg-0">
                 <div class="card card-body bg-primary shadow py-5 text-center h-100 border-0 text-white card-one">
                     <!-- Title -->
-                    {!! $settings->contact_card_one !!}                    
+                    {!! $settings->contact_card_one !!}
                 </div>
             </div>
             @endif
@@ -54,7 +54,7 @@
             <div class="col-lg-4 mt-lg-0">
                 <div class="card card-body shadow py-5 text-center h-100 border-0">
                     <!-- Title -->
-                    {!! $settings->contact_card_two !!}                     
+                    {!! $settings->contact_card_two !!}
                 </div>
             </div>
             @endif
@@ -64,7 +64,7 @@
             <div class="col-lg-4 mt-lg-0">
                 <div class="card card-body shadow py-5 text-center h-100 border-0">
                     <!-- Title -->
-                    {!! $settings->contact_card_three !!}                     
+                    {!! $settings->contact_card_three !!}
                 </div>
             </div>
             @endif
@@ -74,14 +74,14 @@
 
 <section>
     <div class="container my-5">
-        <div class="row g-4 g-lg-0 align-items-center">                   
+        <div class="row g-4 g-lg-0 align-items-center">
 
             <!-- Contact form START -->
             <div class="col-md-12">
                 <!-- Title -->
                 <h2 class="mt-4 mt-md-0">Let's talk</h2>
                 <p>To request a quote or want to meet up for coffee, contact us directly or fill out the form and we will get back to you promptly</p>
-                    
+
                 <form action="" method="post" id="contactForm" name="contactForm">
                     <!-- Name -->
                     <div class="row">
@@ -110,7 +110,7 @@
                     <!-- Button -->
                     <div class="d-grid">
                         <button class="btn btn-lg btn-primary mb-0" id="submit" type="submit">Send Message</button>
-                    </div>	
+                    </div>
                 </form>
             </div>
             <!-- Contact form END -->
@@ -121,8 +121,8 @@
 <section class="pt-0 mb-5">
     <div class="container">
         <div class="row">
-            <div class="col-12">
-                <iframe class="w-100 h-400px grayscale rounded" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.9663095343008!2d-74.00425878428698!3d40.74076684379132!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259bf5c1654f3%3A0xc80f9cfce5383d5d!2sGoogle!5e0!3m2!1sen!2sin!4v1586000412513!5m2!1sen!2sin" height="500" style="border:0;" aria-hidden="false" tabindex="0"></iframe>	
+            <div class="col-auto">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2700.5606430646158!2d85.31658827059948!3d27.677991674207497!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb19799ecafa79%3A0xbd693a1616123b1f!2sRealm%20Infotech%20Pvt.%20Ltd.!5e1!3m2!1sen!2snp!4v1742194915574!5m2!1sen!2snp" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
         </div>
     </div>

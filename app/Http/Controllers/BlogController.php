@@ -10,13 +10,14 @@ use Illuminate\Support\Facades\Validator;
 class BlogController extends Controller
 {
     public function index() {
-    
+
         $blogs = Blog::where('status',1)->orderBy('created_at','DESC')->get();
-        
+
         $data['blogs'] = $blogs;
 
         return view('blog',$data);
     }
+
 
     public function detail($id){
 
@@ -36,9 +37,26 @@ class BlogController extends Controller
         return view('blog-detail',$data);
 
     }
+    public function detailBySlug($slug){
+
+        $blog = Blog::where('slug',$slug)->first();
+
+        if ($blog == null) {
+            return redirect()->route('blog.front');
+        }
+
+        $comments = Comment::where('status',1)
+                        ->where('slug',$blog->slug)
+                        ->orderBY('created_at','ASC')->get();
+
+        $data['blog'] = $blog;
+        $data['comments'] = $comments;
+        return view('blog-detail',$data);
+
+    }
 
     public function saveComment(Request $request) {
-        
+
         // /new Comment
 
         $validator = Validator::make($request->all(),[

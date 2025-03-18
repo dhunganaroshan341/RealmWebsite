@@ -19,5 +19,6 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
         $this->call(AdminSeeder::class); // This will run the AdminSeeder
+        $this->call(ServiceSeeder::class); // This will run the AdminSeeder
     }
 }

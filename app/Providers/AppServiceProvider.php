@@ -3,6 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Intervention\Image\ImageManager;
+
+use Intervention\Image\Drivers\Gd\Driver; // Use GD Driver
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -12,8 +15,10 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         //
-    }
-
+        $this->app->singleton(ImageManager::class, function ($app) {
+            // Use the string 'gd' or 'imagick' as the driver
+            return new ImageManager('gd');  // or 'imagick'
+        });}
     /**
      * Bootstrap any application services.
      */

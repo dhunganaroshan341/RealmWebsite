@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\admin\AdminLoginController;
+use App\Http\Controllers\admin\BannerSliderController;
 use App\Http\Controllers\admin\DashboardController;
+use App\Http\Controllers\Admin\FeaturedServiceController;
 use App\Http\Controllers\admin\ServiceController;
 use App\Http\Controllers\admin\TempImageController;
 use App\Http\Controllers\admin\BlogController as AdminBlogController;
@@ -13,6 +15,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ServicesController;
+use App\Models\Page;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,7 +33,22 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
+// testing routes
+
+Route::get('/test/login', function () {
+    return view('components.register-login');
+});
+// end of testing routes
+
 Route::get('/',[HomeController::class,'index'])->name('home');
+Route::get('static/{id}', function($id) {
+    $page = Page::find($id); // Or use `where('id', $id)->first()` if you prefer
+    if (!$page) {
+        abort(404); // Page not found, handle gracefully
+    }
+    return view('static-page', ['page' => $page]); // Pass the page variable to the view
+});
+
 Route::get('/about-us',[ HomeController::class, 'about' ])->name('about');
 Route::get('/terms',[ HomeController::class, 'terms' ])->name('terms');
 Route::get('/privacy',[ HomeController::class, 'privacy' ])->name('privacy');
@@ -41,8 +59,9 @@ Route::get('/services/detail/{id}',[ ServicesController::class, 'detail' ]);
 Route::get('/faq',[ FaqController::class, 'index' ]);
 Route::get('/blog',[ BlogController::class, 'index' ])->name('blog.front');
 Route::get('/blog/{id}',[ BlogController::class, 'detail' ])->name('blog-detail');
+Route::get('/blog/{slug}',[ BlogController::class, 'detailBySlug' ])->name('blog-detail-by-slug');
 Route::post('/save-comment',[ BlogController::class, 'saveComment' ])->name('save.blog');
-Route::get('/contact',[ ContactController::class, 'index' ]);
+Route::get('/contact',[ ContactController::class, 'index' ])->name('contact');
 Route::post('/send-email',[ ContactController::class, 'sendEmail' ])->name('sendContactEmail');
 
 Route::group(['prefix' => 'admin'], function(){
@@ -76,7 +95,9 @@ Route::group(['prefix' => 'admin'], function(){
 
         Route::post('/services/delete/{id}',[ServiceController::class,'delete'])->name('service.delete');
 
-
+        Route::get('featured-services', [FeaturedServiceController::class, 'index'])->name('featured-services.index');
+        Route::post('featured-services', [FeaturedServiceController::class, 'store'])->name('featured-services.save');
+        Route::delete('featured-services/{id}', [FeaturedServiceController::class, 'destroy'])->name('featured-services.destroy');
         // Blog Routes
         Route::get('/blog/create',[AdminBlogController::class,'create'])->name('blog.create.form');
         Route::post('/blog/create',[AdminBlogController::class,'save'])->name('blog.save');
@@ -105,7 +126,8 @@ Route::group(['prefix' => 'admin'], function(){
         Route::post('/page/delete/{id}',[PageController::class,'delete'])->name('page.delete');
 
         Route::post('/page/deleteImage',[PageController::class,'deleteImage'])->name('page.deleteImage');
-
+// banner slider section
+Route::resource('banner-sliders', BannerSliderController::class);
         // Setting Routes
         Route::get('/settings',[SettingsController::class,'index'])->name('settings.index');
         Route::post('/settings',[SettingsController::class,'save'])->name('settings.save');

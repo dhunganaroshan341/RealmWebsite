@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class FeaturedService extends Model
 {
     use HasFactory;
+    protected $table = 'featured_services';
+    protected $fillable = ['service_id', 'sort_order'];
+
+    public function service()
+    {
+        return $this->belongsTo(Service::class, 'service_id', 'service_id');
+    }
 }

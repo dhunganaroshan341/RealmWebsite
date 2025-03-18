@@ -8,9 +8,17 @@ use App\Models\Setting;
 use App\Models\FeaturedService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 
 class SettingsController extends Controller
 {
+    protected $imageManager;
+
+public function __construct()
+{
+    $this->imageManager = new ImageManager(new Driver());
+}
     public function index(){
         $settings = Setting::find(1);
 
@@ -40,7 +48,7 @@ class SettingsController extends Controller
                 $featuredService->sort_order = $key;
                 $featuredService->save();
             }
-        }        
+        }
 
 
         if($validator->passes()) {
@@ -74,10 +82,10 @@ class SettingsController extends Controller
                 $settings->save();
             }
 
-            $request->session()->flash('success','Settings saved successfully');
+            session()->flash('success','Settings saved successfully');
 
             return response()->json([
-                'status' => 200,                
+                'status' => 200,
             ]);
 
         } else {

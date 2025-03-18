@@ -6,10 +6,18 @@ use App\Http\Controllers\Controller;
 use App\Models\Faq;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 
 
 class FaqController extends Controller
 {
+    protected $imageManager;
+
+public function __construct()
+{
+    $this->imageManager = new ImageManager(new Driver());
+}
     public function index(Request $request) {
 
         $faq = Faq::orderBy('created_at','DESC');
@@ -42,9 +50,9 @@ class FaqController extends Controller
                 'answer' => $request->answer,
                 'status' => $request->status
             ]);
-            $request->session()->flash();
 
-            $request->session()->flash('success','Faq created successfully.');
+
+            session()->flash('success','Faq created successfully.');
 
             return response()->json([
                 'status' => 200,
@@ -63,7 +71,7 @@ class FaqController extends Controller
         $faq = Faq::where('id',$id)->first();
 
         if ($faq == null) {
-            $request->session()->flash('error','Faq Not found');
+            session()->flash('error','Faq Not found');
             return redirect()->route('faqList');
         }
 
@@ -85,7 +93,7 @@ class FaqController extends Controller
                 'status' => $request->status
             ]);
 
-            $request->session()->flash('success','Faq updated successfully.');
+            session()->flash('success','Faq updated successfully.');
 
             return response()->json([
                 'status' => 200,
@@ -103,7 +111,7 @@ class FaqController extends Controller
 
         Faq::where('id',$id)->delete();
 
-        $request->session()->flash('success','Faq deleted successfully.');
+        session()->flash('success','Faq deleted successfully.');
 
         return response()->json([
             'status' => 200,

@@ -22,12 +22,12 @@
     </div>
     <!-- /.content-header -->
     <!-- Main content -->
-    <section class="content  h-100"">
-        <div class="container-fluid  h-100"">
+    <section class="content  h-100">
+        <div class="container-fluid  h-100">
             <!-- Small boxes (Stat box) -->
             <div class="row">
-                
-                <div class="col-md-12 ">	
+
+                <div class="col-md-12 ">
 
                     @if(Session::has('success'))
                     <div class="alert alert-success">
@@ -40,7 +40,7 @@
                         {{ Session::get('error') }}
                     </div>
                     @endif
-                    						
+
                     <div class="card">
                         <div class="card-header">
                             <div class="card-title">
@@ -67,7 +67,7 @@
                                     <th>Name</th>
                                     <th width="100">Created</th>
                                     <th width="100">Status</th>
-                                    <th width="100">Action</th>                                    
+                                    <th width="100">Action</th>
                                 </tr>
                                 @if (!empty($pages))
                                     @foreach ($pages as $page)
@@ -80,7 +80,8 @@
                                         <img src="{{ asset('uploads/placeholder.jpg') }}" alt="" width="50">
                                         @endif
                                     </td>
-                                    <td>{{ $page->name }}</td>
+                                    <td>{{ $page->name }} &nbsp; <a title="preview" href="{{ url('static/' . $page->id) }}"><i class="fas fa-eye"></i></a></td>
+
                                     <td>{{ date('d/m/Y',strtotime($page->created_at)) }}</td>
                                     <td>
                                         @if($page->status == 1)
@@ -103,7 +104,7 @@
                                                 <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"></path>
                                             </svg>
                                         </a>
-                                    </td>                                    
+                                    </td>
                                 </tr>
                                 @endforeach
 
@@ -115,7 +116,7 @@
                             </table>
                         </div>
                     </div>
-                </div>                            
+                </div>
             </div>
             <!-- /.row -->
             <div class="row">
@@ -134,7 +135,7 @@
 @section('extraJs')
 <script type="text/javascript">
 function deletePage(id) {
-    
+
     if (confirm("Are you sure you want to delete?")) {
         $.ajax({
             url: '{{ url("/admin/page/delete") }}/'+id,

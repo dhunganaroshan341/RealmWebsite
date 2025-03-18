@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     @if (!empty(getSettings()) && getSettings()->website_title != '')
     <title>{{ getSettings()->website_title }}</title>
     @else
-    <title>Laravel WEB APP</title>
+    <title>{{ get_website_title() }}</title>
     @endif
-    
-    
+
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -19,6 +19,7 @@
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    @stack('styles')
     <meta name="_token" content="{{ csrf_token() }}">
 </head>
 <body>
@@ -29,7 +30,7 @@
                     <div class="col-lg-6">
                         <ul class="top-bar-info list-inline-item ps-0 mb-0">
                             <li class="list-inline-item">
-                                
+
                                 @if (!empty(getSettings()) && getSettings()->email != '')
                                 <a href="mailto:{{ getSettings()->email }}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-fill" viewBox="0 0 16 16">
@@ -55,12 +56,14 @@
                 </div>
             </div>
         </div>
-        
+
         <nav class="navbar  sticky-top navbar-expand-lg navigation" id="navbar">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    <img src="{{ asset('assets/images/logo.png') }}" alt="" class="img-fluid">
-                </a>
+            <div class="container" >
+                <div class="logo-container">
+                    <a class="navbar-brand" href="{{ url('/') }}">
+                        <img src="{{ asset('assets/images/logo.png') }}" alt="Logo" class="navbar-logo">
+                    </a>
+                </div>
                 <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarmain" aria-controls="navbarmain" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="icofont-navigation-menu"></span>
                 </button>
@@ -75,15 +78,15 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 @if(!empty(getServices()))
                                 @foreach (getServices() as $service)
-                                <li><a class="dropdown-item" href="{{ url("/services/detail/".$service->id) }}">{{ $service->name }}</a></li>    
-                                @endforeach                                
+                                <li><a class="dropdown-item" href="{{ url("/services/detail/".$service->id) }}">{{ $service->name }}</a></li>
+                                @endforeach
                                 @endif
                                 <li><a class="dropdown-item" href="{{ url('/services') }}">View All</a></li>
                             </ul>
-                        </li>                        
+                        </li>
                         <li class="nav-item"><a class="nav-link" href="/faq">FAQ</a></li>
                         <li class="nav-item ">
-                            <a class="nav-link " href="{{ url('/blog') }}">Blog</a>                            
+                            <a class="nav-link " href="{{ url('/blog') }}">Blog</a>
                         </li>
                         <li class="nav-item"><a class="nav-link" href="{{ url('/contact') }}">Contact</a></li>
                     </ul>
@@ -93,7 +96,7 @@
     </header>
 
     <main>
-        
+
         @yield('content')
 
     </main>
@@ -105,48 +108,48 @@
                     <div class="widget mb-5 mb-lg-0">
                         <div class="logo mb-4">
                             <img src="{{ asset('assets/images/logo.png') }}" alt="" class="img-fluid">
-                        </div>                        
+                        </div>
                     </div>
-                </div>    
+                </div>
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="widget mb-5 mb-lg-0">
                         <h4 class="text-capitalize mb-3">Services</h4>
                         <div class="divider mb-4"></div>
-    
+
                         <ul class="list-unstyled footer-menu lh-35">
                             @if(!empty(getServices()))
                             @foreach (getServices() as $service)
-                            <li><a href="{{ url("/services/detail/".$service->id) }}">{{ $service->name }}</a></li>    
-                            @endforeach                                
-                            @endif                            
+                            <li><a href="{{ url("/services/detail/".$service->id) }}">{{ $service->name }}</a></li>
+                            @endforeach
+                            @endif
                         </ul>
                     </div>
                 </div>
-    
+
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="widget mb-5 mb-lg-0">
                         <h4 class="text-capitalize mb-3">Quick Links</h4>
                         <div class="divider mb-4"></div>
-    
+
                         <ul class="list-unstyled footer-menu lh-35">
                             <li><a href="{{ route('terms') }}">Terms &amp; Conditions</a></li>
                             <li><a href="{{ route('privacy') }}">Privacy Policy</a></li>
-                            <li><a href="{{ route('about') }}">About Us</a></li>                            
-                            <li><a href="{{ route('blog.front') }}">Blog</a></li>                            
+                            <li><a href="{{ route('about') }}">About Us</a></li>
+                            <li><a href="{{ route('blog.front') }}">Blog</a></li>
                         </ul>
                     </div>
                 </div>
-    
+
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="widget widget-contact mb-5 mb-lg-0">
                         <h4 class="text-capitalize mb-3">Get in Touch</h4>
                         <div class="divider mb-4"></div>
-    
+
                         <div class="footer-contact-block mb-4">
-                            
+
                             <h4 class="mt-2">
                                 @if(!empty(getSettings()) && getSettings()->email != '')
-                                <i class="fa-solid fa-envelope"></i> 
+                                <i class="fa-solid fa-envelope"></i>
                                 <a href="mailto:{{ getSettings()->email }}">{{ getSettings()->email }}</a>
                                 @endif
 
@@ -154,14 +157,14 @@
 
                             <h4 class="mt-2">
                                 @if(!empty(getSettings()) && getSettings()->phone != '')
-                                <i class="fa-solid fa-phone-square" aria-hidden="true"></i> 
+                                <i class="fa-solid fa-phone-square" aria-hidden="true"></i>
                                 <a href="tel:{{getSettings()->phone}}">{{getSettings()->phone}}</a>
                                 @endif
                             </h4>
                         </div>
-    
+
                         <div class="footer-contact-block">
-                            
+
                             <ul class="list-inline footer-socials mt-4">
                                 @if(!empty(getSettings()) && getSettings()->facebook_url != '')
                                 <li class="list-inline-item">
@@ -185,7 +188,7 @@
                     </div>
                 </div>
             </div>
-    
+
             <div class="footer-btm py-4 mt-5">
                 <div class="row align-items-center justify-content-between">
                     <div class="col-lg-6">
@@ -194,9 +197,9 @@
                             {{ getSettings()->copy }}
                             @endif
                         </div>
-                    </div>                    
+                    </div>
                 </div>
-    
+
                 <div class="row">
                     <div class="col-lg-4">
                         <a class="backtop scroll-top-to reveal" href="#top">
@@ -207,12 +210,12 @@
             </div>
         </div>
     </footer>
-</body>
+
 <script src="{{ asset('assets/js/jquery-3.6.0.min.js') }}"></script>
 <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script src="{{ asset('assets/js/custom.js') }}"></script>
-</html>
+
 
 <script>
 
@@ -224,3 +227,6 @@ $.ajaxSetup({
 </script>
 
 @yield('extraJs')
+@stack('scripts')
+</body>
+</html>

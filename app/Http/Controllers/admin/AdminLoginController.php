@@ -6,9 +6,18 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Image;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 
 class AdminLoginController extends Controller
 {
+    protected $imageManager;
+
+    public function __construct()
+    {
+        $this->imageManager = new ImageManager(new Driver());
+    }
     public function index() {
         return view('admin.login');
     }
@@ -22,23 +31,23 @@ class AdminLoginController extends Controller
 
         if ($validator->passes()) {
             // Now authenticate admin
-            
+
             if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
                 $user = Auth::guard('admin')->user();
 
                 if ($user->role == 'admin') {
-                    // redirect user to dashboad 
+                    // redirect user to dashboad
                     return redirect()->route('admin.dashboard');
 
                 } else {
-                    
+
                     // logout current session and back to login page
                     Auth::guard('admin')->logout();
-                    $request->session()->flash('error','Either email/password is incorrect');
+                    session()->flash('error','Either email/password is incorrect');
                     return redirect()->route('admin.login');
-                } 
+                }
             } else {
-                $request->session()->flash('error','Either email/password is incorrect');
+                session()->flash('error','Either email/password is incorrect');
                 return redirect()->route('admin.login');
             }
 

@@ -9,19 +9,28 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
+use Intervention\Image\ImageManager;
+
+use Intervention\Image\Drivers\Gd\Driver;
 
 class ServiceController extends Controller
 {
+    protected $imageManager;
+
+    public function __construct()
+    {
+        $this->imageManager = new ImageManager(new Driver());
+    }
     public function index(Request $request) {
 
         $services = Service::orderBy('created_at','DESC');
-
+        // dd($services);
         if (!empty($request->keyword)) {
             $services = $services->where('name','like','%'.$request->keyword.'%');
         }
-        
+
         $services = $services->paginate(20);
-        
+
         $data['services'] = $services;
 
         return view('admin.services.list',$data);
@@ -32,56 +41,30 @@ class ServiceController extends Controller
     }
 
     public function save(Request $request) {
+        // dd($request->all());
         $validator = Validator::make($request->all(), [
             'name' => 'required'
         ]);
-        
+
         if($validator->passes()) {
             // Form validated successfully
 
             $service = new Service;
+            $imageName=time().'_'.$request->image_id->getClientOriginalName();
+            $imagePath="/uploads/services/thumb/small";
+            $store=$request->image_id->storeAs($imagePath,$imageName,'public');
+            $service->image = $store;
             $service->name = $request->name;
             $service->description = $request->description;
             $service->short_desc = $request->short_description;
             $service->status = $request->status;
             $service->save();
 
-            if ($request->image_id > 0) {
-                $tempImage = TempFile::where('id',$request->image_id)->first();
-                $tempFileName = $tempImage->name;
-                $imageArray = explode('.',$tempFileName);
-                $ext = end($imageArray);
-
-                $newFileName = 'service-'.$service->id.'.'.$ext;
-
-                $sourcePath = './uploads/temp/'.$tempFileName;
-
-                // Generate Small Thumbnail
-                $dPath = './uploads/services/thumb/small/'.$newFileName;
-                $img = Image::make($sourcePath);
-                $img->fit(360,220);
-                $img->save($dPath);
-
-                // Generate Large Thumbnail
-                $dPath = './uploads/services/thumb/large/'.$newFileName;
-                $img = Image::make($sourcePath);
-                $img->resize(1150, null, function ($constraint) {
-                    $constraint->aspectRatio();
-                });
-                $img->save($dPath);
-
-                $service->image = $newFileName;
-                $service->save();
-
-                File::delete($sourcePath);
-            
-            }
-
-            $request->session()->flash('success','Service Created Successfully');
+            session()->flash('success','Service Created Successfully');
 
             return response()->json([
                 'status' => 200,
-                'message' => 'Service Created Successfully'                                       
+                'message' => 'Service Created Successfully'
             ]);
 
         } else {
@@ -93,14 +76,14 @@ class ServiceController extends Controller
         }
     }
 
-    public function edit($id, Request $request) {        
+    public function edit($id, Request $request) {
         $service = Service::where('id',$id)->first();
-        
+
         if(empty($service)) {
-            $request->session()->flash('error','Record not found in DB');
+            session()->flash('error','Record not found in DB');
             return redirect()->route('serviceList');
         }
-        
+
         $data['service'] = $service;
 
         return view('admin.services.edit',$data);
@@ -110,16 +93,16 @@ class ServiceController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required'
         ]);
-        
+
         if($validator->passes()) {
             // Form validated successfully
 
             $service = Service::find($id);
 
             if (empty($service)) {
-                $request->session()->flash('error','Record not found');
+                session()->flash('error','Record not found');
                 return response()->json([
-                    'status' => 0,                    
+                    'status' => 0,
                 ]);
             }
 
@@ -143,23 +126,21 @@ class ServiceController extends Controller
 
                 // Generate Small Thumbnail
                 $dPath = './uploads/services/thumb/small/'.$newFileName;
-                $img = Image::make($sourcePath);
-                $img->fit(360,220);
+                $img = $this->imageManager->read($sourcePath);
+                $img->cover(360,220);
                 $img->save($dPath);
 
-                // Delete old small thumbnail                
+                // Delete old small thumbnail
                 $sourcePathSmall = './uploads/services/thumb/small/'.$oldImageName;
                 File::delete($sourcePathSmall);
 
                 // Generate Large Thumbnail
                 $dPath = './uploads/services/thumb/large/'.$newFileName;
-                $img = Image::make($sourcePath);
-                $img->resize(1150, null, function ($constraint) {
-                    $constraint->aspectRatio();
-                });
+                $img = $this->imageManager->read($sourcePath);
+                $img->resize(width:1150 );
                 $img->save($dPath);
 
-                // Delete old small thumbnail                
+                // Delete old small thumbnail
                 $sourcePathLarge = './uploads/services/thumb/large/'.$oldImageName;
                 File::delete($sourcePathLarge);
 
@@ -170,11 +151,11 @@ class ServiceController extends Controller
 
             }
 
-            $request->session()->flash('success','Service updated Successfully');
+            session()->flash('success','Service updated Successfully');
 
             return response()->json([
                 'status' => 200,
-                'message' => 'Service Created Successfully'                                       
+                'message' => 'Service Created Successfully'
             ]);
 
         } else {
@@ -187,12 +168,12 @@ class ServiceController extends Controller
     }
 
     public function delete($id, Request $request) {
-        
+
         $service = Service::where('id',$id)->first();
 
         if (empty($service)) {
 
-            $request->session()->flash('error','Record not found');
+            session()->flash('error','Record not found');
 
             return response([
                 'status' => 0
@@ -207,7 +188,7 @@ class ServiceController extends Controller
 
         Service::where('id',$id)->delete();
 
-        $request->session()->flash('success','Service deleted successfully.');
+        session()->flash('success','Service deleted successfully.');
 
         return response([
             'status' => 1

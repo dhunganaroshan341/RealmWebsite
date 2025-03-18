@@ -1,6 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Facade;
+// use Intervention\Image\ImageManager;
+
+
+// $manager = new ImageManager('gd');
+
 
 return [
 
@@ -196,6 +201,9 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         Cviebrock\EloquentSluggable\ServiceProvider::class,
+//
+        // Intervention\Image\ImageService\ImageServiceProvider::class,
+
 
     ],
 

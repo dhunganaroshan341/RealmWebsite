@@ -9,9 +9,18 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\File;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 
 class PageController extends Controller
 {
+
+    protected $imageManager;
+
+    public function __construct()
+    {
+        $this->imageManager = new ImageManager(new Driver());
+    }
 
     public function index(Request $request) {
         $pages = Page::orderBy('created_at','DESC');
@@ -19,7 +28,7 @@ class PageController extends Controller
         if (!empty($request->keyword)) {
             $pages = $pages->where('name','like','%'.$request->keyword.'%');
         }
-        
+
         $data['pages'] = $pages->paginate(20);
 
         return view('admin.pages.list',$data);
@@ -31,7 +40,7 @@ class PageController extends Controller
 
     // This method will save a page in DB
     public function save(Request $request) {
-        
+
         $validator = Validator::make($request->all(),[
             'name' => 'required'
         ]);
@@ -45,7 +54,7 @@ class PageController extends Controller
             $page->save();
 
             if ($request->image_id > 0) {
-                
+
                 $tempImage = TempFile::where('id',$request->image_id)->first();
                 $tempFileName = $tempImage->name;
                 $imageArray = explode('.',$tempFileName);
@@ -57,16 +66,14 @@ class PageController extends Controller
 
                 // // Generate Small Thumbnail
                 // $dPath = './uploads/pages/thumb/small/'.$newFileName;
-                // $img = Image::make($sourcePath);
+                // $img = $this->imageManager->read($sourcePath);
                 // $img->fit(360,220);
                 // $img->save($dPath);
 
                 // Generate Large Thumbnail
                 $dPath = './uploads/pages/thumb/large/'.$newFileName;
-                $img = Image::make($sourcePath);
-                $img->resize(1150, null, function ($constraint) {
-                    $constraint->aspectRatio();
-                });
+                $img = $this->imageManager->read($sourcePath);
+                $img->resize(width:1150);
                 $img->save($dPath);
 
                 // This will update image in DB
@@ -74,10 +81,10 @@ class PageController extends Controller
                 $page->save();
 
                 File::delete($sourcePath);
-            
+
             }
 
-            $request->session()->flash('success','Page Created successfully');
+            session()->flash('success','Page Created successfully');
 
             return response()->json([
                 'status' => 200,
@@ -122,7 +129,7 @@ class PageController extends Controller
             $oldImageName = $page->name;
 
             if ($request->image_id > 0) {
-                
+
                 $tempImage = TempFile::where('id',$request->image_id)->first();
                 $tempFileName = $tempImage->name;
                 $imageArray = explode('.',$tempFileName);
@@ -134,16 +141,14 @@ class PageController extends Controller
 
                 // // Generate Small Thumbnail
                 // $dPath = './uploads/pages/thumb/small/'.$newFileName;
-                // $img = Image::make($sourcePath);
+                // $img = $this->imageManager->read($sourcePath);
                 // $img->fit(360,220);
                 // $img->save($dPath);
 
                 // Generate Large Thumbnail
                 $dPath = './uploads/pages/thumb/large/'.$newFileName;
-                $img = Image::make($sourcePath);
-                $img->resize(1150, null, function ($constraint) {
-                    $constraint->aspectRatio();
-                });
+                $img = $this->imageManager->read($sourcePath);
+                $img->resize(1150);
                 $img->save($dPath);
 
                 // This will update image in DB
@@ -153,10 +158,10 @@ class PageController extends Controller
                 File::delete('./uploads/pages/thumb/large/'.$oldImageName);
 
                 File::delete($sourcePath);
-            
+
             }
 
-            $request->session()->flash('success','Page Updated successfully');
+            session()->flash('success','Page Updated successfully');
 
             return response()->json([
                 'status' => 200,
@@ -173,11 +178,11 @@ class PageController extends Controller
 
     public function delete($id, Request $request) {
 
-        $page = Page::where('id',$id)->first();      
+        $page = Page::where('id',$id)->first();
         File::delete('./uploads/pages/thumb/large/'.$page->image);
         $page->delete();
 
-        $request->session()->flash('success','Page deleted successfully');
+        session()->flash('success','Page deleted successfully');
 
         return response()->json([
             'status' => 200,
@@ -185,9 +190,9 @@ class PageController extends Controller
     }
 
     public function deleteImage(Request $request) {
-        $page = Page::find($request->id);    
+        $page = Page::find($request->id);
         $oldImage = $page->image;
-        
+
         $page->image = '';
         $page->save();
 

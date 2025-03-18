@@ -11,14 +11,14 @@
                         <div class="col-md-12">
                             <div class="block text-center">
                                 <span class="text-uppercase text-sm letter-spacing"></span>
-                                <h1 class="mb-3 mt-3 text-center">Services</h1>        
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>                                                                        
+                                <h1 class="mb-3 mt-3 text-center">Services</h1>
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>                
+        </div>
     </div>
 </section>
 
@@ -27,11 +27,11 @@
         <div class="divider mb-3"></div>
         <h2 class="title-color mb-4 h1">Services</h2>
         <div class="cards">
-           <div class="row">    
+           <div class="row">
 
                 @if(!empty($services))
-                @foreach ($services as $service)                   
-                
+                @foreach ($services as $service)
+
                 <div class="col-md-4 mb-4">
                     <div class="card border-0">
                         @if(!empty($service->image))
@@ -46,12 +46,12 @@
                             </div>
                             <a href="{{ url('/services/detail/'.$service->id) }}" class="btn btn-primary mt-4">Details <i class="fa-solid fa-angle-right"></i></a>
                         </div>
-                    </div> 
+                    </div>
                 </div>
                 @endforeach
-                @endif               
+                @endif
            </div>
-        </div>                
+        </div>
     </div>
 </section>
 
@@ -59,9 +59,9 @@
     <div class="hero-background-overlay"></div>
     <div class="container">
        <div class="help-container">
-            <h1 class="title">Do you need help?</h1>
+            <h1 class="title">Want to Reach out?</h1>
             <p class="card-text mt-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi ipsum, odit velit exercitationem praesentium error id iusto dolorem expedita nostrum eius atque? Aliquam ab reprehenderit animi sapiente quasi, voluptate dolorum?</p>
-            <a href="#" class="btn btn-primary mt-3">Call Us Now <i class="fa-solid fa-angle-right"></i></a>
+            <a href="{{ route('contact') }}" class="btn btn-primary mt-3">Contact Us <i class="fa-solid fa-angle-right"></i></a>
        </div>
     </div>
 </section>

@@ -1,0 +1,12 @@
+
+:root {
+    --realmbg: #222275;
+    --realmbg-yellow: #f5cb46;
+}
+.realm-bg {
+    background-color: var(--realmbg);
+}
+
+.realm-bg-yellow {
+    background-color: var(--realmbg-yellow);
+}

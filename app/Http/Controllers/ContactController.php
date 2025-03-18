@@ -12,7 +12,7 @@ class ContactController extends Controller
     public function index() {
         $settings = getSettings();
         return view('contact',['settings' => $settings]);
-        
+
     }
 
    public function sendEmail(Request $request){
@@ -21,7 +21,7 @@ class ContactController extends Controller
             'name' => 'required',
             'email' => 'required|email',
             'message' => 'required'
-        ]); 
+        ]);
 
         $emailData = [];
         if ($validator->passes()) {
@@ -31,17 +31,17 @@ class ContactController extends Controller
 
             Mail::to('phptechlife@gmail.com')->send(new ContactMail($emailData));
 
-            $request->session()->flash('success','Thanks for contacting us, we will contact you shortly.');
+            session()->flash('success','Thanks for contacting us, we will contact you shortly.');
 
             return response()->json([
                 'status' => 200,
-            ]); 
+            ]);
 
         } else {
            return response()->json([
             'status' => 0,
             'errors' => $validator->errors()
-           ]); 
+           ]);
         }
 
    }

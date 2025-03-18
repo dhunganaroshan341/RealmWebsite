@@ -7,9 +7,11 @@ use App\Models\Blog;
 use App\Models\TempFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Intervention\Image\Facades\Image;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 use Illuminate\Support\Facades\File;
 use Cviebrock\EloquentSluggable\Services\SlugService;
+use Illuminate\Support\Facades\Mail;
 
 class BlogController extends Controller
 {
@@ -22,9 +24,9 @@ class BlogController extends Controller
         if (!empty($request->keyword)) {
             $blogs = $blogs->where('name','like','%'.$request->keyword.'%');
         }
-        
+
         $blogs = $blogs->paginate(20);
-        
+
         $data['blogs'] = $blogs;
 
         return view('admin.blog.list',$data);
@@ -36,7 +38,7 @@ class BlogController extends Controller
     }
 
     // This method will save a blog in DB
-    public function save(Request $request) {
+    public function save(Request $request,ImageManager $imageManager) {
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'slug' => 'required|unique:blogs'
@@ -64,30 +66,34 @@ class BlogController extends Controller
 
                 // Generate Small Thumbnail
                 $dPath = './uploads/blogs/thumb/small/'.$newFileName;
-                $img = Image::make($sourcePath);
-                $img->fit(360,220);
-                $img->save($dPath);
+                $image=time().'.'.$request->image_id->getclientOriginalName();
+                $imagePath=$request->image_id->storeAs($dPath,$image,'public');
+                $image=$imagePath;
+                $image->save($image);
+                // $img = $imageManager::make($sourcePath);
+                // $img->fit(360,220);
+                // $img->save($dPath);
 
                 // Generate Large Thumbnail
                 $dPath = './uploads/blogs/thumb/large/'.$newFileName;
-                $img = Image::make($sourcePath);
-                $img->resize(1150, null, function ($constraint) {
-                    $constraint->aspectRatio();
-                });
+                $img = $imageManager->read($sourcePath);
+                $img->resize(1150);
                 $img->save($dPath);
 
                 $blog->image = $newFileName;
+                $email="test@gmail.com";
                 $blog->save();
 
+
                 File::delete($sourcePath);
-            
+
             }
 
-            $request->session()->flash('success','Blog Created Successfully');
+            session()->flash('success','Blog Created Successfully');
 
             return response()->json([
                 'status' => 200,
-                'message' => 'Blog Created Successfully'                                       
+                'message' => 'Blog Created Successfully'
             ]);
 
         } else {
@@ -102,31 +108,31 @@ class BlogController extends Controller
 
     public function edit($id, Request $request) {
         $blog = Blog::where('id',$id)->first();
-        
+
         if(empty($blog)) {
-            $request->session()->flash('error','Record not found in DB');
+            session()->flash('error','Record not found in DB');
             return redirect()->route('blogList');
         }
-        
+
         $data['blog'] = $blog;
         return view('admin.blog.edit',$data);
     }
 
-    public function update($id, Request $request) {
+    public function update($id, Request $request,ImageManager $imageManager) {
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'slug' => 'required|unique:blogs'
         ]);
-        
+
         if($validator->passes()) {
             // Form validated successfully
 
             $blog = Blog::find($id);
 
             if (empty($blog)) {
-                $request->session()->flash('error','Record not found');
+                session()->flash('error','Record not found');
                 return response()->json([
-                    'status' => 0,                    
+                    'status' => 0,
                 ]);
             }
 
@@ -151,23 +157,21 @@ class BlogController extends Controller
 
                 // Generate Small Thumbnail
                 $dPath = './uploads/blogs/thumb/small/'.$newFileName;
-                $img = Image::make($sourcePath);
-                $img->fit(360,220);
+                $img = $imageManager->read($sourcePath);
+                $img->cover(360,220);
                 $img->save($dPath);
 
-                // Delete old small thumbnail                
+                // Delete old small thumbnail
                 $sourcePathSmall = './uploads/blogs/thumb/small/'.$oldImageName;
                 File::delete($sourcePathSmall);
 
                 // Generate Large Thumbnail
                 $dPath = './uploads/blogs/thumb/large/'.$newFileName;
-                $img = Image::make($sourcePath);
-                $img->resize(1150, null, function ($constraint) {
-                    $constraint->aspectRatio();
-                });
+                $img = $imageManager->read($sourcePath);
+                $img->resizeDown(width:1150  );
                 $img->save($dPath);
 
-                // Delete old small thumbnail                
+                // Delete old small thumbnail
                 $sourcePathLarge = './uploads/blogs/thumb/large/'.$oldImageName;
                 File::delete($sourcePathLarge);
 
@@ -178,11 +182,11 @@ class BlogController extends Controller
 
             }
 
-            $request->session()->flash('success','Blog updated Successfully');
+            session()->flash('success','Blog updated Successfully');
 
             return response()->json([
                 'status' => 200,
-                'message' => 'Blog updated Successfully'                                       
+                'message' => 'Blog updated Successfully'
             ]);
 
         } else {
@@ -195,12 +199,12 @@ class BlogController extends Controller
     }
 
     public function delete($id, Request $request) {
-        
+
         $blog = Blog::where('id',$id)->first();
 
         if (empty($blog)) {
 
-            $request->session()->flash('error','Record not found');
+            session()->flash('error','Record not found');
 
             return response([
                 'status' => 0
@@ -215,7 +219,7 @@ class BlogController extends Controller
 
         Blog::where('id',$id)->delete();
 
-        $request->session()->flash('success','Blog deleted successfully.');
+        session()->flash('success','Blog deleted successfully.');
 
         return response([
             'status' => 1

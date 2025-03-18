@@ -11,14 +11,14 @@
                         <div class="col-md-12">
                             <div class="block text-center">
                                 <span class="text-uppercase text-sm letter-spacing"></span>
-                                <h1 class="mb-3 mt-3 text-center">Blog & News</h1>        
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>                                                                        
+                                <h1 class="mb-3 mt-3 text-center">Blog & News</h1>
+                                <p>keep Updating Yourself </p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>                
+        </div>
     </div>
 </section>
 
@@ -30,8 +30,8 @@
         </div>
 
         @if(!empty($blog->image))
-        <div class="mt-2">            
-            <img src="{{ asset('uploads/blogs/thumb/large/'.$blog->image) }}" alt="" class="w-100">            
+        <div class="mt-2">
+            <img src="{{ asset('uploads/blogs/thumb/large/'.$blog->image) }}" alt="" class="w-100">
         </div>
         @endif
 
@@ -40,7 +40,7 @@
         </div>
 
         <div class="comment-box my-4">
-           <h5>Comment Here</h5> 
+           <h5>Comment Here</h5>
            <form action="" id="commentForm" name="commentForm">
                 <input type="hidden" name="blog_id" value="{{ $blog->id }}">
 
@@ -52,27 +52,27 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-6">
                             <textarea name="comment" placeholder="Enter Your Comment" id="comment" cols="30" rows="5" class="form-control"></textarea>
                             <p class="comment-error invalid-feedback"></p>
                         </div>
-                        
-                    </div>               
+
+                    </div>
                 </div>
                 <button type="submit" class="btn btn-primary mt-3">Submit</button>
            </form>
         </div>
 
         <hr>
-        
+
         <h5>Comments</h5>
         <div id="comment-box">
             @if(!empty($comments))
             @foreach ($comments as $comment)
-            <div class="card mb-3">            
+            <div class="card mb-3">
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
                         <div class="h5">{{ $comment->name }}</div>
@@ -81,9 +81,9 @@
                     <div class="">{{ $comment->comment }}</div>
                 </div>
             </div>
-            @endforeach            
+            @endforeach
             @endif
-        </div>      
+        </div>
     </div>
 </section>
 @endsection
@@ -116,7 +116,7 @@
                         $("#comment").removeClass('is-invalid');
                     }
                 } else {
-                    var html = `<div class="card mb-3">            
+                    var html = `<div class="card mb-3">
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
                                 <div class="h5">${response['name']}</div>
@@ -140,7 +140,7 @@
             }, error: function(){
 
             },
-            headers: 
+            headers:
                 {
                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
             }
