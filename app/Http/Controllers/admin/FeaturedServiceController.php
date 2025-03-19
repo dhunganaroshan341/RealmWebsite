@@ -35,6 +35,8 @@ public function __construct()
         // Mail::send('welcome', ['blog' => "Hello world"], function ($message) use ($email) {
         //     $message->to($email)->subject('THank you !');
         // });
+
+        $request->validate
     }
 
     /**
