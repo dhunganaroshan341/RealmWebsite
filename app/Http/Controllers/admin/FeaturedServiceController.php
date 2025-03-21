@@ -31,13 +31,29 @@ public function __construct()
      */
     public function store(Request $request)
     {
-        // $email="test@gmail.com";
-        // Mail::send('welcome', ['blog' => "Hello world"], function ($message) use ($email) {
-        //     $message->to($email)->subject('THank you !');
-        // });
+        $validatedData = $request->validate([
+            'services' => 'required|array',
+            'services.*.service_id' => 'required|exists:services,id',
+            'services.*.sort_order' => 'nullable|integer',
+        ]);
 
-        $request->validate
+        try {
+            foreach ($validatedData['services'] as $serviceData) {
+                FeaturedService::create([
+                    'service_id' => $serviceData['service_id'],
+                    'sort_order' => $serviceData['sort_order'] ?? null,
+                ]);
+            }
+
+            session()->flash('success', 'Services added successfully');
+            return response()->json(['message' => 'Services added successfully']);
+        } catch (\Exception $e) {
+            session()->flash('error', 'Error Occurred: ' . $e->getMessage());
+            return response()->json(['message' => 'Error Occurred: ' . $e->getMessage()]);
+        }
     }
+
+
 
     /**
      * Display the specified resource.
@@ -53,6 +69,7 @@ public function __construct()
     public function update(Request $request, string $id)
     {
         //
+
     }
 
     /**

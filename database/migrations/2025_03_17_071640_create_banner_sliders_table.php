@@ -15,7 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('title');  // Title of the slider
             $table->text('description')->nullable();  // Description of the slider
-            $table->string('image_url');  // URL for the banner image
+            $table->string('subtitle')->nullable();  // Description of the slider
+            $table->string('button_text')->nullable();  // Description of the slider
+            $table->string('link')->nullable();  // Description of the slider
+
+            $table->string('image');  // URL for the banner image
             $table->boolean('is_active')->default(true);  // Flag to mark if the banner is active
             $table->integer('order')->default(0);  // Order of the slider for displaying
             $table->timestamps();  // Timestamps for created_at and updated_at

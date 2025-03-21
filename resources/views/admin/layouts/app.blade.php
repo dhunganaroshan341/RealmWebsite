@@ -43,50 +43,95 @@
                     <nav class="mt-2">
                         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="#" class="nav-link {{ Request::is('admin/dashboard') ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-tachometer-alt"></i>
                                     <p>Dashboard</p>
                                 </a>
                             </li>
+
                             <li class="nav-item">
-                                <a href="{{ route('serviceList') }}" class="nav-link">
+                                <a href="{{ route('serviceList') }}" class="nav-link {{ Request::is('admin/services*') ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Manage Services</p>
                                 </a>
                             </li>
-							<li class="nav-item">
-                                <a href="{{ route('blogList') }}" class="nav-link">
+
+                            <li class="nav-item">
+                                <a href="{{ route('blogList') }}" class="nav-link {{ Request::is('admin/blogs*') ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Manage Blogs</p>
                                 </a>
                             </li>
-							<li class="nav-item">
-                                <a href="{{ route('faqList') }}" class="nav-link">
+
+                            <li class="nav-item">
+                                <a href="{{ route('faqList') }}" class="nav-link {{ Request::is('admin/faqs*') ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Manage Faq</p>
+                                    <p>Manage FAQ</p>
                                 </a>
                             </li>
-							<li class="nav-item">
-                                <a href="{{ route('pageList') }}" class="nav-link">
+
+                            <li class="nav-item">
+                                <a href="{{ route('pageList') }}" class="nav-link {{ Request::is('admin/pages*') ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Manage Pages</p>
                                 </a>
                             </li>
-							<li class="nav-item">
-                                <a href="{{ route('settings.index') }}" class="nav-link">
+
+                            <li class="nav-item">
+                                <a href="{{ route('settings.index') }}" class="nav-link {{ Request::is('admin/settings*') ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Settings</p>
                                 </a>
                             </li>
+
+                            <!-- Page Sections Dropdown -->
+                            <li class="nav-item {{ Request::is('admin/banner-sliders*') ? 'menu-open' : '' }}">
+                                <a href="#" class="nav-link {{ Request::is('admin/banner-sliders*') ? 'active' : '' }}">
+                                    <i class="nav-icon fas fa-layer-group"></i>
+                                    <p>
+                                        Page Sections
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="{{ route('banner-sliders.index') }}" class="nav-link {{ Request::is('admin/banner-sliders*') ? 'active' : '' }}">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Bannerslider</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ url('/admin/page-sections/sliders') }}" class="nav-link {{ Request::is('admin/page-sections/sliders') ? 'active' : '' }}">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Sliders</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ url('/admin/page-sections/other') }}" class="nav-link {{ Request::is('admin/page-sections/other') ? 'active' : '' }}">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Other Sections</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="{{ route('testimonials.index') }}" class="nav-link {{ Request::is('admin/testimonials*') ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Testimonials</p>
+                                </a>
+                            </li>
+
                             <li class="nav-item">
                                 <a href="{{ route('admin.logout') }}" class="nav-link">
                                     <i class='fas fa-sign-out-alt nav-icon'></i>
-
                                     <p>Logout</p>
                                 </a>
                             </li>
                         </ul>
                     </nav>
+
+
                     <!-- /.sidebar-menu -->
                 </div>
                 <!-- /.sidebar -->

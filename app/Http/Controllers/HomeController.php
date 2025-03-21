@@ -24,7 +24,7 @@ class HomeController extends Controller
 
         $services = Service::where('status',1)->orderBy('created_at','DESC')->paginate(6);
         $data['services'] = $services;
-        return view('home', compact('data', 'showPopup'));
+        return view('home', compact('data', 'showPopup','services'));
 
     }
 

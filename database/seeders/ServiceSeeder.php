@@ -23,6 +23,13 @@ class ServiceSeeder extends Seeder
                 'status' => 1,
             ],
             [
+                'image' => 'digital-marketing.jpg',
+                'name' => 'Digital Marketing',
+                'short_desc' => 'Promoting your brands through digital channels.',
+                'description' => 'We offer comprehensive digital marketing services to promote your brand across various digital platforms, increasing reach and engagement.',
+                'status' => 1,
+            ],
+            [
                 'image' => 'seo.jpg',
                 'name' => 'SEO',
                 'short_desc' => 'Optimizing websites for search engines.',
@@ -36,13 +43,7 @@ class ServiceSeeder extends Seeder
                 'description' => 'Our graphic design services involve creating visual content that effectively communicates your brand message and engages your audience.',
                 'status' => 1,
             ],
-            [
-                'image' => 'digital-marketing.jpg',
-                'name' => 'Digital Marketing',
-                'short_desc' => 'Promoting brands through digital channels.',
-                'description' => 'We offer comprehensive digital marketing services to promote your brand across various digital platforms, increasing reach and engagement.',
-                'status' => 1,
-            ],
+
         ];
 
         // Insert only if the services do not already exist

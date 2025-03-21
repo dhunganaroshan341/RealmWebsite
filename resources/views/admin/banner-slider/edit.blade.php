@@ -1,167 +1,123 @@
 @extends('admin.layouts.app')
 
 @section('content')
-
-    <!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">BannerSlider / Edit</h1>
+                    <h1 class="m-0">Banner Slider / Edit</h1>
                 </div>
-                <!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
+                        <li class="breadcrumb-item active">Edit Banner Slider</li>
                     </ol>
                 </div>
-                <!-- /.col -->
             </div>
-            <!-- /.row -->
         </div>
-        <!-- /.container-fluid -->
     </div>
-    <!-- /.content-header -->
-    <!-- Main content -->
-    <section class="content  h-100"">
-        <div class="container-fluid  h-100"">
-            <!-- Small boxes (Stat box) -->
+
+    <section class="content">
+        <div class="container-fluid">
             <div class="row">
-                <div class="col-md-12 ">
-                    <form action="" method="post" name="editBlog" id="editBlog">
+                <div class="col-md-12">
+                    <form action="{{ route('banner-sliders.update', $bannerSlider->id) }}" method="POST" enctype="multipart/form-data" id="editBannerSlider">
+                        @csrf
+                        @method('PATCH') <!-- Using PATCH for update -->
+
                         <div class="card">
                             <div class="card-header">
-                                <a href="{{ route('bannerSliderList') }}" class="btn btn-primary">Back</a>
+                                <a href="{{ route('banner-sliders.index') }}" class="btn btn-primary">Back</a>
                             </div>
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="name">Name</label>
-                                    <input type="text" value="{{ $bannerSlider->name }}" name="name" id="name" class="form-control">
-                                    <p class="error name-error"></p>
+                                    <label for="title">Title</label>
+                                    <input type="text" name="title" id="title" class="form-control" value="{{ $bannerSlider->title }}" required>
                                 </div>
 
-
+                                <div class="form-group">
+                                    <label for="subtitle">Subtitle</label>
+                                    <input type="text" name="subtitle" id="subtitle" class="form-control" value="{{ $bannerSlider->subtitle }}">
+                                </div>
 
                                 <div class="form-group">
-                                    <label for="name">Description</label>
-                                    <textarea name="description" id="description" class="summernote">{{ $bannerSlider->description }}</textarea>
+                                    <label for="description">Description</label>
+                                    <textarea name="description" id="description" class="summernote form-control">{{ $bannerSlider->description }}</textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="button_text">Button Text</label>
+                                    <input type="text" name="button_text" id="button_text" class="form-control" value="{{ $bannerSlider->button_text }}">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="link">Link</label>
+                                    <input type="url" name="link" id="link" class="form-control" value="{{ $bannerSlider->link }}">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="order">Order</label>
+                                    <input type="number" name="order" id="order" class="form-control" value="{{ $bannerSlider->order }}" required>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <input type="hidden" name="image_id" id="image_id" value="">
-                                        <label for="Image">Image</label>
-                                        <div id="image" class="dropzone dz-clickable">
-                                            <div class="dz-message needsclick">
-                                                <br>Drop files here or click to upload.<br><br>
-                                            </div>
-                                        </div>
-
-                                        @if(!empty($bannerSlider->image))
-                                        <img class="img-thumbnail my-4" src="{{ asset('uploads/bannerSlider/thumb/small/'.$bannerSlider->image) }}" width="300">
+                                        <label for="image">Image</label>
+                                        <input type="file" name="image" id="image" class="form-control" accept="image/*">
+                                        @if($bannerSlider->image)
+                                            <img src="{{ asset('storage/'.$bannerSlider->image) }}" alt="Current Image" class="mt-2" width="150">
                                         @endif
-
-
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="">Short Description</label>
-                                        <textarea name="short_description" id="short_description" cols="30" rows="7" class="form-control">{{ $bannerSlider->short_desc }}</textarea>
                                     </div>
                                 </div>
 
                                 <div class="form-group mt-4">
-                                    <label for="status">Status</label>
-                                    <select name="status" id="status" class="form-control">
-                                        <option value="1" {{ ($bannerSlider->status == 1) ? 'selected' : '' }}>Active</option>
-                                        <option value="0"  {{ ($bannerSlider->status == 0) ? 'selected' : '' }}>Block</option>
+                                    <label for="is_active">Status</label>
+                                    <select name="is_active" id="is_active" class="form-control" required>
+                                        <option value="1" {{ $bannerSlider->is_active == 1 ? 'selected' : '' }}>Active</option>
+                                        <option value="0" {{ $bannerSlider->is_active == 0 ? 'selected' : '' }}>Inactive</option>
                                     </select>
                                 </div>
 
-                                <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-success">Update</button>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
-            <!-- /.row -->
-            <!-- /.row (main row) -->
         </div>
-        <!-- /.container-fluid -->
     </section>
-    <!-- /.content -->
 @endsection
 
-
 @section('extraJs')
-
 <script type="text/javascript">
-    Dropzone.autoDiscover = false;
-    const dropzone = $("#image").dropzone({
-        init: function() {
-            this.on('addedfile', function(file) {
-                if (this.files.length > 1) {
-                    this.removeFile(this.files[0]);
+    $(document).ready(function () {
+        // Handle AJAX Form Submission
+        $("#editBannerSlider").submit(function(event){
+            event.preventDefault();
+            let form = $(this);
+
+            $("button[type='submit']").prop('disabled', true);
+
+            $.ajax({
+                url: form.attr('action'),
+                type: 'POST',
+                dataType: 'json',
+                data: form.serialize(),
+                success: function(response){
+                    $("button[type='submit']").prop('disabled', false);
+
+                    if(response.status === 200) {
+                        window.location.href = '{{ route("banner-sliders.index") }}';
+                    } else {
+                        alert('Validation error!');
+                    }
+                },
+                error: function(response) {
+                    $("button[type='submit']").prop('disabled', false);
+                    alert('Something went wrong!');
                 }
             });
-        },
-        url:  "{{ route('tempUpload') }}",
-        maxFiles: 1,
-        addRemoveLinks: true,
-        acceptedFiles: "image/jpeg,image/png,image/gif",
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-        }, success: function(file, response){
-            $("#image_id").val(response.id);
-        }
-    });
-
-
-    $("#editBlog").submit(function(event){
-        event.preventDefault();
-        $("button[type='submit']").prop('disabled',true);
-        $.ajax({
-            url: '{{ route("bannerSlider.update",$bannerSlider->id) }}',
-            type: 'POST',
-            dataType: 'json',
-            data: $("#editBlog").serializeArray(),
-            success: function(response){
-                $("button[type='submit']").prop('disabled',false);
-
-                if(response.status == 200) {
-                    // no error
-                    window.location.href = '{{ route("bannerSliderList") }}';
-                } else {
-
-                    // Here we will show errors
-                    if(response.errors.name) {
-                        $('.name-error').html(response.errors.name);
-                    } else {
-                        $('.name-error').html('');
-                    }
-
-                    if (response.errors.slug) {
-                        $('.slug-error').html(response.errors.slug);
-                    } else {
-                        $('.slug-error').html('');
-                    }
-                }
-            }
         });
     });
-
-    $("#name").change(function(){
-        $("button[type='submit']").prop('disabled',true);
-        $.ajax({
-            url: '{{ route("bannerSlider.slug") }}',
-            type: 'get',
-            data: {name: $(this).val()},
-            dataType: 'json',
-            success: function(response){
-                $("button[type='submit']").prop('disabled',false);
-                $("#slug").val(response.slug);
-            }
-        })
-    });
 </script>
-
 @endsection

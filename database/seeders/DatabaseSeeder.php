@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
         $this->call(AdminSeeder::class); // This will run the AdminSeeder
         $this->call(ServiceSeeder::class); // This will run the AdminSeeder
         $this->call(TestimonialSeeder::class); // This will run the AdminSeeder
+        $this->call(BannerSliderSeeder::class); // This will run the AdminSeeder
 
 
     }

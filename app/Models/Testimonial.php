@@ -14,6 +14,8 @@ class Testimonial extends Model
         'customer_name',
         'customer_position',
         'testimonial_text',
+        'testimonial_title',
+
         'rating',
         'avatar_image',
         'is_active',

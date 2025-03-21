@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('customer_name'); // Name of the customer
             $table->string('customer_position')->nullable(); // Optional field for the customer's position
             $table->text('testimonial_text'); // Testimonial content
+            $table->text('testimonial_title')->nullable(); // Testimonial content
             $table->integer('rating')->nullable(); // Optional rating (e.g., 1-5 stars)
             $table->string('avatar_image')->nullable(); // Path to the customer's avatar image (optional)
             $table->boolean('is_active')->default(true); // Flag to determine if the testimonial is active

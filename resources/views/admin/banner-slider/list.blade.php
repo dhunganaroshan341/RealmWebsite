@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Blogs / List</h1>
+                    <h1 class="m-0">Banner-slider / List</h1>
                 </div>
                 <!-- /.col -->
                 <div class="col-sm-6">
@@ -21,14 +21,13 @@
         <!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
+
     <!-- Main content -->
-    <section class="content  h-100"">
-        <div class="container-fluid  h-100"">
+    <section class="content h-100">
+        <div class="container-fluid h-100">
             <!-- Small boxes (Stat box) -->
             <div class="row">
-
-                <div class="col-md-12 ">
-
+                <div class="col-md-12">
                     @if(Session::has('success'))
                     <div class="alert alert-success">
                         {{ Session::get('success') }}
@@ -44,7 +43,7 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="card-title">
-                                <a href="{{ route('blog.create.form') }}" class="btn btn-primary">Create</a>
+                                <a href="{{ route('banner-sliders.create') }}" class="btn btn-primary">Create</a>
                             </div>
                             <div class="card-tools">
                                 <form action="" method="get">
@@ -65,45 +64,44 @@
                                     <th width="50">Id</th>
                                     <th width="80">Image</th>
                                     <th>Title</th>
-                                    <th>Slug</th>
+                                    <th>Subtitle</th>
+                                    <th>Description</th>
                                     <th width="100">Created</th>
                                     <th width="100">Status</th>
                                     <th width="100">Action</th>
                                 </tr>
-                                @if (!empty($blogs))
-                                    @foreach ($blogs as $blog)
+                                @if (!empty($bannerSliders))
+                                    @foreach ($bannerSliders as $slider)
                                 <tr>
-                                    <td>{{ $blog->id }}</td>
+                                    <td>{{ $slider->id }}</td>
                                     <td>
-                                        @if(!empty($blog->image))
-                                        <img src="{{ asset('uploads/blogs/thumb/small/'.$blog->image) }}" width="50">
+                                        @if(!empty($slider->image))
+                                        <img src="{{ asset('uploads/banner-sliders/'.$slider->image) }}" width="50">
                                         @else
                                         <img src="{{ asset('uploads/placeholder.jpg') }}" alt="" width="50">
                                         @endif
                                     </td>
-                                    <td>{{ $blog->name }}</td>
-                                    <td>{{ $blog->slug }}</td>
-                                    <td>{{ date('d/m/Y',strtotime($blog->created_at)) }}</td>
+                                    <td>{{ $slider->title }}</td>
+                                    <td>{{ $slider->subtitle }}</td>
+                                    <td>{{ $slider->description }}</td>
+                                    <td>{{ date('d/m/Y',strtotime($slider->created_at)) }}</td>
                                     <td>
-                                        @if($blog->status == 1)
+                                        @if($slider->is_active == 1)
                                             <span class="badge bg-success">Active</span>
-                                            <a href="{{ route('blog-detail', ['id' => $blog->id]) }}" title="preview" target="_blank" rel="noopener noreferrer">
-                                                <i class="fas fa-eye"></i>
-                                            </a>
                                         @else
                                             <span class="badge bg-danger">Blocked</span>
                                         @endif
                                     </td>
 
                                     <td>
-                                        <a href="{{ route('blog.edit',$blog->id) }}" class="">
+                                        <a href="{{ route('banner-sliders.edit', $slider->id) }}" class="">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                                                 <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"></path>
                                                 <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"></path>
                                             </svg>
                                         </a>
                                         &nbsp;
-                                        <a href="javascript:void(0);" class="" onclick="deleteBlog({{ $blog->id }});">
+                                        <a href="javascript:void(0);" class="" onclick="deleteBannerSlider({{ $slider->id }});">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#dc3545" class="bi bi-trash" viewBox="0 0 16 16">
                                                 <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"></path>
                                                 <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"></path>
@@ -112,10 +110,9 @@
                                     </td>
                                 </tr>
                                 @endforeach
-
                                 @else
                                 <tr>
-                                    <td colspan="6">Records Not Found</td>
+                                    <td colspan="8">No Records Found</td>
                                 </tr>
                                 @endif
                             </table>
@@ -124,13 +121,12 @@
                 </div>
             </div>
             <!-- /.row -->
-            <div class="row">
-                @if(!empty($blogs))
-                {{ $blogs->links('pagination::bootstrap-4') }}
-                @endif
-            </div>
 
-            <!-- /.row (main row) -->
+            {{-- <div class="row">
+                @if(!empty($bannerSliders))
+                {{ $bannerSliders->links('pagination::bootstrap-4') }}
+                @endif
+            </div> --}}
         </div>
         <!-- /.container-fluid -->
     </section>
@@ -139,16 +135,15 @@
 
 @section('extraJs')
 <script type="text/javascript">
-function deleteBlog(id) {
-
-    if (confirm("Are you sure you want to delete?")) {
+function deleteBannerSlider(id) {
+    if (confirm("Are you sure you want to delete this banner slider?")) {
         $.ajax({
-            url: '{{ url("/admin/blog/delete") }}/'+id,
+            url: '{{ url("/admin/banner-sliders/delete") }}/' + id,
             type: 'POST',
             dataType: 'json',
             data: {},
-            success: function(response){
-                window.location.href = "{{ route('blogList') }}";
+            success: function(response) {
+                window.location.href = "{{ route('banner-sliders.index') }}";
             }
         });
     }

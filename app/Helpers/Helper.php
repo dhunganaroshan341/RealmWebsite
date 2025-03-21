@@ -1,17 +1,26 @@
 <?php
 
+use App\Models\BannerSlider;
 use App\Models\FeaturedService;
 use App\Models\Setting;
 use App\Models\Blog;
+use App\Models\Service;
 
 function getSettings(){
     return Setting::first();
 }
+function getBanners()
+{
+    $carouselItems = BannerSlider::all();
 
-function getServices(){
-    return FeaturedService::leftJoin('services','services.id','featured_services.service_id')
-    ->orderBy('sort_order','ASC')
-    ->get();
+    return $carouselItems;
+}
+
+
+function getServices()
+{
+    // return  null;
+    return FeaturedService::with('service')->get()->pluck('service');
 }
 
 function getLatestBlog(){
@@ -35,8 +44,18 @@ function get_website_logo(){
 }
 
 function get_services(){
-    $services = getServices();
-    return $services;
+   $services = Service::all();
+   return $services;
+}
+
+
+
+
+// some shortcuts for controller
+// response with json and session flash
+function response_with_session_and_json($message,$type){
+    session()->flash($type, $message);
+    return response()->json(['message' => $message]);
 }
 
 ?>

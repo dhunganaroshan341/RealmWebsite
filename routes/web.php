@@ -4,12 +4,14 @@ use App\Http\Controllers\admin\AdminLoginController;
 use App\Http\Controllers\admin\BannerSliderController;
 use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\Admin\FeaturedServiceController;
+use App\Http\Controllers\admin\GalleryController;
 use App\Http\Controllers\admin\ServiceController;
 use App\Http\Controllers\admin\TempImageController;
 use App\Http\Controllers\admin\BlogController as AdminBlogController;
 use App\Http\Controllers\Admin\FaqController as AdminFaqController;
 use App\Http\Controllers\admin\PageController;
 use App\Http\Controllers\admin\SettingsController;
+use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FaqController;
@@ -38,7 +40,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/test/login', function () {
     return view('components.register-login');
 });
+
+Route::get('/test/testimonials', function () {
+    return view('components.testimonial');
+});
 // end of testing routes
+
 
 Route::get('/',[HomeController::class,'index'])->name('home');
 Route::get('static/{id}', function($id) {
@@ -63,6 +70,15 @@ Route::get('/blog/{slug}',[ BlogController::class, 'detailBySlug' ])->name('blog
 Route::post('/save-comment',[ BlogController::class, 'saveComment' ])->name('save.blog');
 Route::get('/contact',[ ContactController::class, 'index' ])->name('contact');
 Route::post('/send-email',[ ContactController::class, 'sendEmail' ])->name('sendContactEmail');
+Route::get('/gallery', function () {
+    $page = [
+        'title' => 'Gallery Page',
+        'description' => 'This is the gallery page where you can view amazing pictures.'
+    ];
+
+    return view('gallery.index', compact('page'));
+})->name('gallery.index');
+
 
 Route::group(['prefix' => 'admin'], function(){
 
@@ -132,5 +148,17 @@ Route::resource('banner-sliders', BannerSliderController::class);
         Route::get('/settings',[SettingsController::class,'index'])->name('settings.index');
         Route::post('/settings',[SettingsController::class,'save'])->name('settings.save');
     });
+    // testimonial Adminpanel
+    Route::apiResource('testimonials',TestimonialController::class);
+    Route::get('testimonials/create',[Testimonialcontroller::class,'create'])->name('testimonials.create');
+    Route::get('testimonials/edit/{testimonial}',[Testimonialcontroller::class,'edit'])->name('testimonials.edit');
+
+
+    Route::get('galleries', [GalleryController::class, 'index'])->name('galleries.index');
+    Route::get('galleries/create', [GalleryController::class, 'create'])->name('galleries.create');
+    Route::post('galleries', [GalleryController::class, 'store'])->name('galleries.store');
+    Route::get('galleries/{id}/edit', [GalleryController::class, 'edit'])->name('galleries.edit');
+    Route::put('galleries/{id}', [GalleryController::class, 'update'])->name('galleries.update');
+    Route::delete('galleries/{id}', [GalleryController::class, 'destory'])->name('galleries.destroy');
 
 });

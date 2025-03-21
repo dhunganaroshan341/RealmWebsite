@@ -11,9 +11,12 @@ class BannerSlider extends Model
 
     protected $fillable = [
         'title',
+        'subtitle',
         'description',
-        'image_url',
+        'image',
         'is_active',
+        'button_text',
+        'link',
         'order',
     ];
 }

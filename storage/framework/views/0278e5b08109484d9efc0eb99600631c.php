@@ -61,7 +61,7 @@
             <div class="container" >
                 <div class="logo-container">
                     <a class="navbar-brand" href="<?php echo e(url('/')); ?>">
-                        <img src="<?php echo e(asset('assets/images/logo.png')); ?>" alt="Logo" class="navbar-logo">
+                        <img src="<?php echo e(asset('assets/images/logo.jpg')); ?>" alt="Logo" class="navbar-logo">
                     </a>
                 </div>
                 <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarmain" aria-controls="navbarmain" aria-expanded="false" aria-label="Toggle navigation">
@@ -76,15 +76,16 @@
                                 Services
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="<?php echo e(url('/services')); ?>">View All</a></li>
                                 <?php if(!empty(getServices())): ?>
                                 <?php $__currentLoopData = getServices(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $service): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <li><a class="dropdown-item" href="<?php echo e(url("/services/detail/".$service->id)); ?>"><?php echo e($service->name); ?></a></li>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 <?php endif; ?>
-                                <li><a class="dropdown-item" href="<?php echo e(url('/services')); ?>">View All</a></li>
+
                             </ul>
                         </li>
-                        <li class="nav-item"><a class="nav-link" href="/faq">FAQ</a></li>
+                        <li class="nav-item"><a class="nav-link" href="<?php echo e(url('gallery')); ?>">Gallery</a></li>
                         <li class="nav-item ">
                             <a class="nav-link " href="<?php echo e(url('/blog')); ?>">Blog</a>
                         </li>
@@ -133,6 +134,8 @@
 
                         <ul class="list-unstyled footer-menu lh-35">
                             <li><a href="<?php echo e(route('terms')); ?>">Terms &amp; Conditions</a></li>
+                            <li><a href="<?php echo e(url('/faq')); ?>">FAQ</a></li>
+
                             <li><a href="<?php echo e(route('privacy')); ?>">Privacy Policy</a></li>
                             <li><a href="<?php echo e(route('about')); ?>">About Us</a></li>
                             <li><a href="<?php echo e(route('blog.front')); ?>">Blog</a></li>
@@ -143,7 +146,16 @@
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="widget widget-contact mb-5 mb-lg-0">
                         <h4 class="text-capitalize mb-3">Get in Touch</h4>
-                        <div class="divider mb-4"></div>
+                        <div class="divider ">
+
+                        </div>
+                        <ul class="list-unstyled footer-menu pt-4">
+                            <li>Address: Patan Dhoka, Lalitpur</li>
+                            <li>Phone: +977 01-5529237</li>
+                            <li>Email: info@realminfotek.com</li>
+                            <li>Working Days: Mon - Fri / 9:00 AM - 8:00 PM</li>
+                        </ul>
+
 
                         <div class="footer-contact-block mb-4">
 

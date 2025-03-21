@@ -129,7 +129,7 @@
         <!-- /.container-fluid -->
     </section>
     <!-- /.content -->
-   <x-featured-service/>
+   {{-- <x-featured-service/> --}}
 @endsection
 
 @section('extraJs')
