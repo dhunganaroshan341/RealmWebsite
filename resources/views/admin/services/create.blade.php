@@ -1,7 +1,6 @@
 @extends('admin.layouts.app')
 
 @section('content')
-
     <!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="container-fluid">
@@ -28,11 +27,13 @@
             <!-- Small boxes (Stat box) -->
             <div class="row">
                 <div class="col-md-12 ">
-                    <form action="" method="post" name="createServiceForm" id="createServiceForm">
+                    <form action="{{ route('service.create') }}" enctype="multipart/form-data" method="post"
+                        name="createServiceForm" id="createServiceForm">
                         <div class="card">
                             <div class="card-header">
                                 <a href="{{ route('serviceList') }}" class="btn btn-primary">Back</a>
                             </div>
+                            @csrf
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="name">Name</label>
@@ -42,7 +43,7 @@
 
                                 <div class="form-group">
                                     <label for="name">Description</label>
-                                    <textarea name="description" id="description" class="summernote" ></textarea>
+                                    <textarea name="description" id="description" class="summernote"></textarea>
                                 </div>
 
                                 <div class="row">
@@ -85,54 +86,67 @@
 
 
 @section('extraJs')
+    <script type="text/javascript">
+        $(document).ready(function() {
 
-<script type="text/javascript">
-    Dropzone.autoDiscover = false;
-    const dropzone = $("#image").dropzone({
-        init: function() {
-            this.on('addedfile', function(file) {
-                if (this.files.length > 1) {
-                    this.removeFile(this.files[0]);
+            Dropzone.autoDiscover = false;
+            var myDropzone = new Dropzone("#image", {
+                url: "{{ route('service.uploadImage') }}",
+                paramName: "file",
+                maxFilesize: 2,
+                acceptedFiles: "image/*",
+                addRemoveLinks: true,
+                headers: {
+                    'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                },
+                success: function(file, response) {
+                    $("#image_id").val(response.image_path);
+                },
+                error: function(file, response) {
+                    console.log(response);
                 }
             });
-        },
-        url:  "{{ route('tempUpload') }}",
-        maxFiles: 1,
-        addRemoveLinks: true,
-        acceptedFiles: "image/jpeg,image/png,image/gif",
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-        }, success: function(file, response){
-            console.log(response);
-
-            $("#image_id").val(response.name);
-        }
-    });
 
 
 
-    $("#createServiceForm").submit(function(event){
-        event.preventDefault();
-        $("button[type='submit']").prop('disabled',true);
+            $("#createServiceForm").submit(function(event) {
+                event.preventDefault();
+                $("button[type='submit']").prop('disabled', true);
 
-        $.ajax({
-            url: '{{ route("service.create") }}',
-            type: 'POST',
-            dataType: 'json',
-            data: $("#createServiceForm").serializeArray(),
-            success: function(response){
-                $("button[type='submit']").prop('disabled',false);
+                $.ajax({
+                    url: '{{ route('service.create') }}',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: $("#createServiceForm").serializeArray(),
+                    success: function(response) {
+                        $("button[type='submit']").prop('disabled', false);
 
-                if(response.status == 200) {
-                    // no error
-                    window.location.href = '{{ route("serviceList") }}';
-                } else {
-                    // Here we will show errors
-                    $('.name-error').html(response.errors.name);
-                }
-            }
-        });
-    });
-</script>
+                        if (response.status == true) {
+                            $("#description").summernote("code","");
+                            $("#image").empty();
 
+                            $("#createServiceForm").trigger("reset");
+                            Lobibox.notify('success', {
+                                position: 'top right',
+                                msg: response.message
+                            });
+
+                        } else {
+                            // Here we will show errors
+                            $('.name-error').html(response.errors.name);
+                        }
+                    },
+                    error:function(xhr){
+                        Lobibox.notify('error', {
+                                position: 'top right',
+                                msg: 'Something went wrong!'
+                            });
+                    },
+                    complete:function(){
+                        $("button[type='submit']").prop('disabled', false);
+                    }
+                });
+            });
+        })
+    </script>
 @endsection
