@@ -21,86 +21,104 @@ class ServiceController extends Controller
     {
         $this->imageManager = new ImageManager(new Driver());
     }
-    public function index(Request $request) {
+    public function index(Request $request)
+    {
 
-        $services = Service::orderBy('created_at','DESC');
+        $services = Service::orderBy('created_at', 'DESC');
         // dd($services);
         if (!empty($request->keyword)) {
-            $services = $services->where('name','like','%'.$request->keyword.'%');
+            $services = $services->where('name', 'like', '%' . $request->keyword . '%');
         }
 
         $services = $services->paginate(20);
 
         $data['services'] = $services;
 
-        return view('admin.services.list',$data);
+        return view('admin.services.list', $data);
     }
 
-    public function create() {
-       return view('admin.services.create');
+    public function create()
+    {
+        return view('admin.services.create');
     }
 
-    public function save(Request $request) {
-        // dd($request->all());
-        $validator = Validator::make($request->all(), [
-            'name' => 'required'
+
+    public function uploadImage(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        if($validator->passes()) {
-            // Form validated successfully
 
-            $service = new Service;
-            $imageName=time().'_'.$request->image_id->getClientOriginalName();
-            $imagePath="/uploads/services/thumb/small";
-            $store=$request->image_id->storeAs($imagePath,$imageName,'public');
-            $service->image = $store;
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $destinationPath = public_path('uploads/services/thumb/small');
+            $file->move($destinationPath, $filename);
+
+            return response()->json([
+                'success' => true,
+                'image_path' => 'uploads/services/thumb/small/' . $filename,
+            ]);
+        }
+
+        return response()->json(['success' => false]);
+    }
+
+
+    public function save(Request $request)
+    {
+        try {
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'description' => 'nullable|string',
+                'short_description' => 'nullable|string',
+                'status' => 'required|boolean',
+                'image_id' => 'nullable|string',
+            ]);
+
+            $service = new Service();
             $service->name = $request->name;
             $service->description = $request->description;
             $service->short_desc = $request->short_description;
             $service->status = $request->status;
+            $service->image = $request->image_id;
             $service->save();
 
-            session()->flash('success','Service Created Successfully');
-
-            return response()->json([
-                'status' => 200,
-                'message' => 'Service Created Successfully'
-            ]);
-
-        } else {
-            // return errors
-            return response()->json([
-                'status' => 0,
-                'errors' => $validator->errors()
-            ]);
+            return response()->json(['status' => true, 'message' => "Service Created Successfully"]);
+        } catch (\Exception $e) {
+            return response()->json(['status' => false, 'message' => $e->getMessage()]);
         }
     }
 
-    public function edit($id, Request $request) {
-        $service = Service::where('id',$id)->first();
+    public function edit($id, Request $request)
+    {
+        $service = Service::where('id', $id)->first();
 
-        if(empty($service)) {
-            session()->flash('error','Record not found in DB');
+        if (empty($service)) {
+            session()->flash('error', 'Record not found in DB');
             return redirect()->route('serviceList');
         }
 
         $data['service'] = $service;
 
-        return view('admin.services.edit',$data);
+        return view('admin.services.edit', $data);
     }
 
-    public function update($id, Request $request) {
+    public function update($id, Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'name' => 'required'
         ]);
+        // dd($request->all());
 
-        if($validator->passes()) {
+        if ($validator->passes()) {
             // Form validated successfully
 
             $service = Service::find($id);
 
             if (empty($service)) {
-                session()->flash('error','Record not found');
+                session()->flash('error', 'Record not found');
                 return response()->json([
                     'status' => 0,
                 ]);
@@ -108,56 +126,31 @@ class ServiceController extends Controller
 
             $oldImageName = $service->image;
 
-            $service->name = $request->name;
-            $service->description = $request->description;
-            $service->short_desc = $request->short_description;
-            $service->status = $request->status;
-            $service->save();
-
-            if ($request->image_id > 0) {
-                $tempImage = TempFile::where('id',$request->image_id)->first();
-                $tempFileName = $tempImage->name;
-                $imageArray = explode('.',$tempFileName);
-                $ext = end($imageArray);
-
-                $newFileName = 'service-'.strtotime('now').'-'.$service->id.'.'.$ext;
-
-                $sourcePath = './uploads/temp/'.$tempFileName;
-
-                // Generate Small Thumbnail
-                $dPath = './uploads/services/thumb/small/'.$newFileName;
-                $img = $this->imageManager->read($sourcePath);
-                $img->cover(360,220);
-                $img->save($dPath);
-
-                // Delete old small thumbnail
-                $sourcePathSmall = './uploads/services/thumb/small/'.$oldImageName;
-                File::delete($sourcePathSmall);
-
-                // Generate Large Thumbnail
-                $dPath = './uploads/services/thumb/large/'.$newFileName;
-                $img = $this->imageManager->read($sourcePath);
-                $img->resize(width:1150 );
-                $img->save($dPath);
-
-                // Delete old small thumbnail
-                $sourcePathLarge = './uploads/services/thumb/large/'.$oldImageName;
-                File::delete($sourcePathLarge);
-
-                $service->image = $newFileName;
-                $service->save();
-
-                File::delete($sourcePath);
-
+            if ($request->image_id) {
+                if (File::exists($oldImageName)) {
+                    File::delete($oldImageName);
+                }
             }
 
-            session()->flash('success','Service updated Successfully');
-
-            return response()->json([
-                'status' => 200,
-                'message' => 'Service Created Successfully'
+            $service->update([
+                'name' => $request->name,
+                'description' => $request->description,
+                'short_desc' => $request->short_description,
+                'image' => $request->image_id,
             ]);
 
+            // $service = new Service();
+            // $service->name = $request->name;
+            // $service->description = $request->description;
+            // $service->short_desc = $request->short_description;
+            // $service->status = $request->status;
+            // $service->image = $request->image_id;
+            // $service->save();
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Service Updated Successfully'
+            ]);
         } else {
             // return errors
             return response()->json([
@@ -167,33 +160,30 @@ class ServiceController extends Controller
         }
     }
 
-    public function delete($id, Request $request) {
+    public function delete($id, Request $request)
+    {
 
-        $service = Service::where('id',$id)->first();
+        try {
+            $service = Service::find($id);
 
-        if (empty($service)) {
+            if (empty($service)) {
 
-            session()->flash('error','Record not found');
+                session()->flash('error', 'Record not found');
 
-            return response([
-                'status' => 0
-            ]);
+                return response([
+                    'status' => 0
+                ]);
+            }
+
+            if (File::exists($service->image)) {
+                File::delete($service->image);
+            }
+
+            $service->delete();
+
+            return response()->json(['status' => true, 'message' => "Service deleted Successfully."]);
+        } catch (\Exception $e) {
+            return response()->json(['status' => false, 'message' => $e->getMessage()]);
         }
-
-        $path = './uploads/services/thumb/small/'.$service->image;
-        File::delete($path);
-
-        $path = './uploads/services/thumb/large/'.$service->image;
-        File::delete($path);
-
-        Service::where('id',$id)->delete();
-
-        session()->flash('success','Service deleted successfully.');
-
-        return response([
-            'status' => 1
-        ]);
-
     }
-
 }
