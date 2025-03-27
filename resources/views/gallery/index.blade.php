@@ -6,173 +6,82 @@
 <div class="desktop_7" unique-script-id="w-w-dm-id">
     <div class="responsive-container-block bigContainer">
       <div class="responsive-container-block Container">
-        {{-- <p class="text-blk headingText">
-          Gallery
-        </p> --}}
         <div class="responsive-container-block optionsContainer">
           <p class="text-blk list all active" data-filter="all">
-            Option
+            All
           </p>
-          <p class="text-blk list" data-filter="one">
-            Option
+          @php
+              $galleries = get_galleries();
+          @endphp
+          @foreach ($galleries as $gallery)
+          <p class="text-blk list" data-filter="{{ $gallery->title }}">
+            {{ $gallery->title }}
           </p>
-          <p class="text-blk list" data-filter="two">
-            Option
-          </p>
-          <p class="text-blk list" data-filter="three">
-            Option
-          </p>
-          <p class="text-blk list" data-filter="four">
-            Option
-          </p>
-          <p class="text-blk list" data-filter="four">
-            Option
-          </p>
+          @endforeach
         </div>
+
         <div class="responsive-container-block imageContainer">
-          <div class="project">
-            <div class="overlay">
-              <div class="overlay-inner">
-                <button class="close">
-                  Close X
-                </button>
-                <div class="hdImgs">
-                  <img alt="" class="againImg" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d71.png">
+            @foreach ($galleries as $gallery)
+                @foreach ($gallery->images as $image)
+                <div class="project {{ $gallery->title }}">  {{-- Add gallery title as a class --}}
+                    <div class="overlay">
+                        <div class="overlay-inner">
+                            <button class="close">
+                                Close X
+                            </button>
+                            <div class="hdImgs">
+                                <img alt="" class="againImg" src="{{ $image->image_path ?? 'https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d71.png' }}">
+                            </div>
+                        </div>
+                    </div>
+                    <img class="squareImg one {{ $gallery->title }}" src="{{ $image->image_path ?? 'https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d71.png' }}">
+                    <div class="btn-box">
+                        <button class="btn">
+                            View
+                        </button>
+                    </div>
                 </div>
-              </div>
-            </div>
-            <img class="squareImg one" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d71.png">
-            <div class="btn-box">
-              <button class="btn">
-                View
-              </button>
-            </div>
-          </div>
-          <div class="project">
-            <img class="squareImg two" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d72.png">
-            <div class="overlay">
-              <div class="overlay-inner">
-                <button class="close">
-                  Close X
-                </button>
-                <div class="hdImgs">
-                  <img class="squareImg two" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d72.png">
-                </div>
-              </div>
-            </div>
-            <div class="btn-box">
-              <button class="btn">
-                View
-              </button>
-            </div>
-          </div>
-          <div class="project">
-            <img class="squareImg three" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d73.png">
-            <div class="overlay">
-              <div class="overlay-inner">
-                <button class="close">
-                  Close X
-                </button>
-                <div class="hdImgs">
-                  <img alt="" class="againImg" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d73.png">
-                </div>
-              </div>
-            </div>
-            <div class="btn-box">
-              <button class="btn">
-                View
-              </button>
-            </div>
-          </div>
-          <div class="project">
-            <img class="squareImg four" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d74.png">
-            <div class="overlay">
-              <div class="overlay-inner">
-                <button class="close">
-                  Close X
-                </button>
-                <div class="hdImgs">
-                  <img alt="" class="againImg" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d74.png">
-                </div>
-              </div>
-            </div>
-            <div class="btn-box">
-              <button class="btn">
-                View
-              </button>
-            </div>
-          </div>
-          <div class="project">
-            <img class="squareImg five" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d75.png">
-            <div class="hdImg">
-              <img alt="" class="againImg" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d75.png">
-            </div>
-            <div class="btn-box">
-              <button class="btn">
-                View
-              </button>
-            </div>
-          </div>
-          <div class="project">
-            <img class="squareImg one" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d76.png">
-            <div class="overlay">
-              <div class="overlay-inner">
-                <button class="close">
-                  Close X
-                </button>
-                <div class="hdImgs">
-                  <img alt="" class="againImg" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d76.png">
-                </div>
-              </div>
-            </div>
-            <div class="btn-box">
-              <button class="btn">
-                View
-              </button>
-            </div>
-          </div>
-          <div class="project">
-            <img class="squareImg two" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d77.png">
-            <div class="overlay">
-              <div class="overlay-inner">
-                <button class="close">
-                  Close X
-                </button>
-                <div class="hdImgs">
-                  <img alt="" class="againImg" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d77.png">
-                </div>
-              </div>
-            </div>
-            <div class="btn-box">
-              <button class="btn">
-                View
-              </button>
-            </div>
-          </div>
-          <div class="project">
-            <img class="squareImg three" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d78.png">
-            <div class="overlay">
-              <div class="overlay-inner">
-                <button class="close">
-                  Close X
-                </button>
-                <div class="hdImgs">
-                  <img alt="" class="againImg" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d78.png">
-                </div>
-              </div>
-            </div>
-            <div class="btn-box">
-              <button class="btn">
-                View
-              </button>
-            </div>
-          </div>
+                @endforeach
+            @endforeach
         </div>
       </div>
     </div>
   </div>
 </section>
-  @endsection
+@endsection
+
+@push('scripts')
+<script>
+    $(document).ready(function() {
+        $("[unique-script-id='w-w-dm-id'] .btn-box").click(function() {
+            $(this).parent().children(".overlay").show();
+        });
+
+        $("[unique-script-id='w-w-dm-id'] .close").click(function() {
+            $(".overlay").hide();
+        });
+
+        $("[unique-script-id='w-w-dm-id'] .list").click(function() {
+            const value = $(this).attr('data-filter');
+
+            if (value == 'all') {
+                $("[unique-script-id='w-w-dm-id'] .project").show('1000');
+            } else {
+                $("[unique-script-id='w-w-dm-id'] .project").hide('1000');
+                $("[unique-script-id='w-w-dm-id'] .project." + value).show('1000');
+            }
+        });
+
+        $("[unique-script-id='w-w-dm-id'] .list").click(function() {
+            $(this).addClass('active').siblings().removeClass('active');
+        });
+    });
+</script>
+@endpush
+
+
+
+
 @push('styles')
 <style>
     .desktop_7 * {
@@ -753,36 +662,4 @@
   }
 }
 </style>
-@endpush
-
-
-@push('scripts')
-<script>
-    $(document).ready(function() {
-
-$("[unique-script-id='w-w-dm-id'] .btn-box").click(function() {
-  $(this).parent().children(".overlay").show();
-
-});
-
-
-$("[unique-script-id='w-w-dm-id'] .close").click(function() {
-  $(".overlay").hide();
-});
-
-$("[unique-script-id='w-w-dm-id'] .list").click(function() {
-  const value = $(this).attr('data-filter');
-  if (value == 'all') {
-    $("[unique-script-id='w-w-dm-id'] .squareImg").show('1000');
-  } else {
-    $("[unique-script-id='w-w-dm-id'] .squareImg").not('.' + value).hide('1000');
-    $("[unique-script-id='w-w-dm-id'] .squareImg").filter('.' + value).show('1000');
-  }
-})
-$("[unique-script-id='w-w-dm-id'] .list").click(function() {
-  $(this).addClass('active').siblings().removeClass('active');
-})
-})
-</script>
-
 @endpush

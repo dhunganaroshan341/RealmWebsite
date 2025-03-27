@@ -24,171 +24,83 @@
 <div class="desktop_7" unique-script-id="w-w-dm-id">
     <div class="responsive-container-block bigContainer">
       <div class="responsive-container-block Container">
-        
         <div class="responsive-container-block optionsContainer">
           <p class="text-blk list all active" data-filter="all">
-            Option
+            All
           </p>
-          <p class="text-blk list" data-filter="one">
-            Option
+          <?php
+              $galleries = get_galleries();
+          ?>
+          <?php $__currentLoopData = $galleries; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $gallery): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+          <p class="text-blk list" data-filter="<?php echo e($gallery->title); ?>">
+            <?php echo e($gallery->title); ?>
+
           </p>
-          <p class="text-blk list" data-filter="two">
-            Option
-          </p>
-          <p class="text-blk list" data-filter="three">
-            Option
-          </p>
-          <p class="text-blk list" data-filter="four">
-            Option
-          </p>
-          <p class="text-blk list" data-filter="four">
-            Option
-          </p>
+          <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </div>
+
         <div class="responsive-container-block imageContainer">
-          <div class="project">
-            <div class="overlay">
-              <div class="overlay-inner">
-                <button class="close">
-                  Close X
-                </button>
-                <div class="hdImgs">
-                  <img alt="" class="againImg" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d71.png">
+            <?php $__currentLoopData = $galleries; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $gallery): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <?php $__currentLoopData = $gallery->images; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $image): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <div class="project <?php echo e($gallery->title); ?>">  
+                    <div class="overlay">
+                        <div class="overlay-inner">
+                            <button class="close">
+                                Close X
+                            </button>
+                            <div class="hdImgs">
+                                <img alt="" class="againImg" src="<?php echo e($image->image_path ?? 'https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d71.png'); ?>">
+                            </div>
+                        </div>
+                    </div>
+                    <img class="squareImg one <?php echo e($gallery->title); ?>" src="<?php echo e($image->image_path ?? 'https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d71.png'); ?>">
+                    <div class="btn-box">
+                        <button class="btn">
+                            View
+                        </button>
+                    </div>
                 </div>
-              </div>
-            </div>
-            <img class="squareImg one" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d71.png">
-            <div class="btn-box">
-              <button class="btn">
-                View
-              </button>
-            </div>
-          </div>
-          <div class="project">
-            <img class="squareImg two" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d72.png">
-            <div class="overlay">
-              <div class="overlay-inner">
-                <button class="close">
-                  Close X
-                </button>
-                <div class="hdImgs">
-                  <img class="squareImg two" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d72.png">
-                </div>
-              </div>
-            </div>
-            <div class="btn-box">
-              <button class="btn">
-                View
-              </button>
-            </div>
-          </div>
-          <div class="project">
-            <img class="squareImg three" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d73.png">
-            <div class="overlay">
-              <div class="overlay-inner">
-                <button class="close">
-                  Close X
-                </button>
-                <div class="hdImgs">
-                  <img alt="" class="againImg" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d73.png">
-                </div>
-              </div>
-            </div>
-            <div class="btn-box">
-              <button class="btn">
-                View
-              </button>
-            </div>
-          </div>
-          <div class="project">
-            <img class="squareImg four" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d74.png">
-            <div class="overlay">
-              <div class="overlay-inner">
-                <button class="close">
-                  Close X
-                </button>
-                <div class="hdImgs">
-                  <img alt="" class="againImg" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d74.png">
-                </div>
-              </div>
-            </div>
-            <div class="btn-box">
-              <button class="btn">
-                View
-              </button>
-            </div>
-          </div>
-          <div class="project">
-            <img class="squareImg five" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d75.png">
-            <div class="hdImg">
-              <img alt="" class="againImg" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d75.png">
-            </div>
-            <div class="btn-box">
-              <button class="btn">
-                View
-              </button>
-            </div>
-          </div>
-          <div class="project">
-            <img class="squareImg one" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d76.png">
-            <div class="overlay">
-              <div class="overlay-inner">
-                <button class="close">
-                  Close X
-                </button>
-                <div class="hdImgs">
-                  <img alt="" class="againImg" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d76.png">
-                </div>
-              </div>
-            </div>
-            <div class="btn-box">
-              <button class="btn">
-                View
-              </button>
-            </div>
-          </div>
-          <div class="project">
-            <img class="squareImg two" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d77.png">
-            <div class="overlay">
-              <div class="overlay-inner">
-                <button class="close">
-                  Close X
-                </button>
-                <div class="hdImgs">
-                  <img alt="" class="againImg" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d77.png">
-                </div>
-              </div>
-            </div>
-            <div class="btn-box">
-              <button class="btn">
-                View
-              </button>
-            </div>
-          </div>
-          <div class="project">
-            <img class="squareImg three" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d78.png">
-            <div class="overlay">
-              <div class="overlay-inner">
-                <button class="close">
-                  Close X
-                </button>
-                <div class="hdImgs">
-                  <img alt="" class="againImg" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d78.png">
-                </div>
-              </div>
-            </div>
-            <div class="btn-box">
-              <button class="btn">
-                View
-              </button>
-            </div>
-          </div>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </div>
       </div>
     </div>
   </div>
 </section>
-  <?php $__env->stopSection(); ?>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startPush('scripts'); ?>
+<script>
+    $(document).ready(function() {
+        $("[unique-script-id='w-w-dm-id'] .btn-box").click(function() {
+            $(this).parent().children(".overlay").show();
+        });
+
+        $("[unique-script-id='w-w-dm-id'] .close").click(function() {
+            $(".overlay").hide();
+        });
+
+        $("[unique-script-id='w-w-dm-id'] .list").click(function() {
+            const value = $(this).attr('data-filter');
+
+            if (value == 'all') {
+                $("[unique-script-id='w-w-dm-id'] .project").show('1000');
+            } else {
+                $("[unique-script-id='w-w-dm-id'] .project").hide('1000');
+                $("[unique-script-id='w-w-dm-id'] .project." + value).show('1000');
+            }
+        });
+
+        $("[unique-script-id='w-w-dm-id'] .list").click(function() {
+            $(this).addClass('active').siblings().removeClass('active');
+        });
+    });
+</script>
+<?php $__env->stopPush(); ?>
+
+
+
+
 <?php $__env->startPush('styles'); ?>
 <style>
     .desktop_7 * {
@@ -769,38 +681,6 @@
   }
 }
 </style>
-<?php $__env->stopPush(); ?>
-
-
-<?php $__env->startPush('scripts'); ?>
-<script>
-    $(document).ready(function() {
-
-$("[unique-script-id='w-w-dm-id'] .btn-box").click(function() {
-  $(this).parent().children(".overlay").show();
-
-});
-
-
-$("[unique-script-id='w-w-dm-id'] .close").click(function() {
-  $(".overlay").hide();
-});
-
-$("[unique-script-id='w-w-dm-id'] .list").click(function() {
-  const value = $(this).attr('data-filter');
-  if (value == 'all') {
-    $("[unique-script-id='w-w-dm-id'] .squareImg").show('1000');
-  } else {
-    $("[unique-script-id='w-w-dm-id'] .squareImg").not('.' + value).hide('1000');
-    $("[unique-script-id='w-w-dm-id'] .squareImg").filter('.' + value).show('1000');
-  }
-})
-$("[unique-script-id='w-w-dm-id'] .list").click(function() {
-  $(this).addClass('active').siblings().removeClass('active');
-})
-})
-</script>
-
 <?php $__env->stopPush(); ?>
 
 <?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH I:\applications\laragon\laragon\www\RealmLaravel10Website\resources\views/gallery/index.blade.php ENDPATH**/ ?>

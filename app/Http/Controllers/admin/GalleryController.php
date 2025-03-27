@@ -23,33 +23,29 @@ class GalleryController extends Controller
 
     // Store new gallery with images
     public function store(Request $request)
-    {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'images' => 'required|array',
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
+{
+    $gallery = $request->gallery_id
+        ? Gallery::findOrFail($request->gallery_id)
+        : Gallery::create(['title' => $request->title]);
 
-        // Create new gallery
-        $gallery = Gallery::create([
-            'title' => $request->title,
-        ]);
-
-        // Store images
-        if ($request->hasFile('images')) {
-            foreach ($request->file('images') as $image) {
-                $path = $image->store('public/gallery_images');
-
-                // Save image to database
-                Image::create([
-                    'gallery_id' => $gallery->id,
-                    'image_path' => $path,
-                ]);
-            }
-        }
-
-        return redirect()->route('galleries.index')->with('success', 'Gallery created successfully!');
+    $images = json_decode($request->images, true);
+    foreach ($images as $image) {
+        Image::create(['gallery_id' => $gallery->id, 'image_path' => $image]);
     }
+    session()->push('sucess', 'gallery Image uploaded successfully!');
+
+    return response()->json(['message' => 'Gallery saved successfully!']);
+}
+
+public function tempUpload(Request $request)
+{
+    $file = $request->file('file');
+    $filename = time() . '_' . $file->getClientOriginalName();
+    $file->move(public_path('uploads/temp'), $filename);
+    session()->push('sucess', 'Image uploaded successfully!');
+    return response()->json(['name' => $filename]);
+}
+
 
     // Show all galleries
 
@@ -57,8 +53,8 @@ class GalleryController extends Controller
     // Show gallery edit form
     public function edit($id)
     {
-        $gallery = Gallery::findOrFail($id);
-        return view('admin.galleries.edit', compact('gallery'));
+        $galleries = Gallery::findOrFail($id);
+        return view('admin.gallery.form', compact('galleries'));
     }
 
     // Update gallery with images

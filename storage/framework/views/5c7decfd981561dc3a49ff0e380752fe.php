@@ -1,568 +1,83 @@
 <div class="desktop_4" unique-script-id="w-w-dm-id">
     <div class="responsive-container-block bigContainer">
-      <div class="responsive-container-block Container">
-        <div class="portfolio">
-          <div class="project">
-            <img alt="" class="project-image one" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d41.png">
-            <div class="overlay">
-              <div class="overlay-inner">
-                <button class="close">
-                  Close X
-                </button>
-                <div class="hdImgs">
-                  <img class="squareImg two" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d41.png">
+        <div class="responsive-container-block Container">
+            <div class="portfolio">
+
+                <!-- Loop through each gallery -->
+                <?php $__currentLoopData = $galleries; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $gallery): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <div class="project">
+                        <h3><?php echo e($gallery->title); ?></h3> <!-- Display gallery title -->
+
+                        <!-- Loop through the images in the gallery -->
+                        <?php $__currentLoopData = $gallery->images; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $image): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <img alt="<?php echo e($gallery->title); ?>" class="project-image" src="<?php echo e(asset($image->image_path)); ?>">
+                            <div class="overlay">
+                                <div class="overlay-inner">
+                                    <button class="close">Close X</button>
+                                    <div class="hdImgs">
+                                        <img class="squareImg" src="<?php echo e(asset($image->image_path)); ?>">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="btn-box">
+                                <button class="btn">View</button>
+                            </div>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    </div>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+                <!-- Gallery Filters Section -->
+                <div class="responsive-container-block textContainer">
+                    <p class="text-blk optionsText">Gallery Filters</p>
+                    <p class="text-blk list active" data-filter="all">All</p>
+                    <?php $__currentLoopData = $galleries; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $gallery): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <p class="text-blk list" data-filter="<?php echo e($gallery->title); ?>"><?php echo e(ucfirst($gallery->title)); ?></p>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </div>
-              </div>
+
             </div>
-            <div class="btn-box">
-              <button class="btn">
-                View
-              </button>
-            </div>
-          </div>
-          <div class="project">
-            <img alt="" class="project-image two" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d42.png">
-            <div class="overlay">
-              <div class="overlay-inner">
-                <button class="close">
-                  Close X
-                </button>
-                <div class="hdImgs">
-                  <img class="squareImg two" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d42.png">
-                </div>
-              </div>
-            </div>
-            <div class="btn-box">
-              <button class="btn">
-                View
-              </button>
-            </div>
-          </div>
-          <div class="project">
-            <img alt="" class="project-image three" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d43.png">
-            <div class="overlay">
-              <div class="overlay-inner">
-                <button class="close">
-                  Close X
-                </button>
-                <div class="hdImgs">
-                  <img class="squareImg two" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d43.png">
-                </div>
-              </div>
-            </div>
-            <div class="btn-box">
-              <button class="btn">
-                View
-              </button>
-            </div>
-          </div>
-          <div class="project">
-            <img alt="" class="project-image one" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d44.png">
-            <div class="overlay">
-              <div class="overlay-inner">
-                <button class="close">
-                  Close X
-                </button>
-                <div class="hdImgs">
-                  <img class="squareImg two" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d44.png">
-                </div>
-              </div>
-            </div>
-            <div class="btn-box">
-              <button class="btn">
-                View
-              </button>
-            </div>
-          </div>
-          <div class="project">
-            <img alt="" class="project-image one" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d44.png">
-            <div class="overlay">
-              <div class="overlay-inner">
-                <button class="close">
-                  Close X
-                </button>
-                <div class="hdImgs">
-                  <img class="squareImg two" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d44.png">
-                </div>
-              </div>
-            </div>
-            <div class="btn-box">
-              <button class="btn">
-                View
-              </button>
-            </div>
-          </div>
-          <div class="project">
-            <img alt="" class="project-image two" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d45.png">
-            <div class="overlay">
-              <div class="overlay-inner">
-                <button class="close">
-                  Close X
-                </button>
-                <div class="hdImgs">
-                  <img class="squareImg two" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d45.png">
-                </div>
-              </div>
-            </div>
-            <div class="btn-box">
-              <button class="btn">
-                View
-              </button>
-            </div>
-          </div>
-          <div class="project">
-            <img alt="" class="project-image three" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d46.png">
-            <div class="overlay">
-              <div class="overlay-inner">
-                <button class="close">
-                  Close X
-                </button>
-                <div class="hdImgs">
-                  <img class="squareImg two" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d46.png">
-                </div>
-              </div>
-            </div>
-            <div class="btn-box">
-              <button class="btn">
-                View
-              </button>
-            </div>
-          </div>
-          <div class="project">
-            <img alt="" class="project-image one" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d41.png">
-            <div class="overlay">
-              <div class="overlay-inner">
-                <button class="close">
-                  Close X
-                </button>
-                <div class="hdImgs">
-                  <img class="squareImg two" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d41.png">
-                </div>
-              </div>
-            </div>
-            <div class="btn-box">
-              <button class="btn">
-                View
-              </button>
-            </div>
-          </div>
-          <div class="project">
-            <img alt="" class="project-image two" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d43.png">
-            <div class="overlay">
-              <div class="overlay-inner">
-                <button class="close">
-                  Close X
-                </button>
-                <div class="hdImgs">
-                  <img class="squareImg two" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d43.png">
-                </div>
-              </div>
-            </div>
-            <div class="btn-box">
-              <button class="btn">
-                View
-              </button>
-            </div>
-          </div>
-          <div class="project">
-            <img alt="" class="project-image three" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d46.png">
-            <div class="overlay">
-              <div class="overlay-inner">
-                <button class="close">
-                  Close X
-                </button>
-                <div class="hdImgs">
-                  <img class="squareImg two" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d46.png">
-                </div>
-              </div>
-            </div>
-            <div class="btn-box">
-              <button class="btn">
-                View
-              </button>
-            </div>
-          </div>
-          <div class="project">
-            <img alt="" class="project-image two" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d45.png">
-            <div class="overlay">
-              <div class="overlay-inner">
-                <button class="close">
-                  Close X
-                </button>
-                <div class="hdImgs">
-                  <img class="squareImg two" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d45.png">
-                </div>
-              </div>
-            </div>
-            <div class="btn-box">
-              <button class="btn">
-                View
-              </button>
-            </div>
-          </div>
-          <div class="project">
-            <img alt="" class="project-image three" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d43.png">
-            <div class="overlay">
-              <div class="overlay-inner">
-                <button class="close">
-                  Close X
-                </button>
-                <div class="hdImgs">
-                  <img class="squareImg two" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d43.png">
-                </div>
-              </div>
-            </div>
-            <div class="btn-box">
-              <button class="btn">
-                View
-              </button>
-            </div>
-          </div>
-          <div class="project">
-            <img alt="" class="project-image one" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d44.png">
-            <div class="overlay">
-              <div class="overlay-inner">
-                <button class="close">
-                  Close X
-                </button>
-                <div class="hdImgs">
-                  <img class="squareImg two" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d44.png">
-                </div>
-              </div>
-            </div>
-            <div class="btn-box">
-              <button class="btn">
-                View
-              </button>
-            </div>
-          </div>
-          <div class="project">
-            <img alt="" class="project-image two" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d45.png">
-            <div class="overlay">
-              <div class="overlay-inner">
-                <button class="close">
-                  Close X
-                </button>
-                <div class="hdImgs">
-                  <img class="squareImg two" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d45.png">
-                </div>
-              </div>
-            </div>
-            <div class="btn-box">
-              <button class="btn">
-                View
-              </button>
-            </div>
-          </div>
-          <div class="project">
-            <img alt="" class="project-image three" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d46.png">
-            <div class="overlay">
-              <div class="overlay-inner">
-                <button class="close">
-                  Close X
-                </button>
-                <div class="hdImgs">
-                  <img class="squareImg two" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d46.png">
-                </div>
-              </div>
-            </div>
-            <div class="btn-box">
-              <button class="btn">
-                View
-              </button>
-            </div>
-          </div>
-          <div class="project">
-            <img alt="" class="project-image one" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d41.png">
-            <div class="overlay">
-              <div class="overlay-inner">
-                <button class="close">
-                  Close X
-                </button>
-                <div class="hdImgs">
-                  <img class="squareImg two" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d41.png">
-                </div>
-              </div>
-            </div>
-            <div class="btn-box">
-              <button class="btn">
-                View
-              </button>
-            </div>
-          </div>
-          <div class="project">
-            <img alt="" class="project-image two" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d43.png">
-            <div class="overlay">
-              <div class="overlay-inner">
-                <button class="close">
-                  Close X
-                </button>
-                <div class="hdImgs">
-                  <img class="squareImg two" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d432.png">
-                </div>
-              </div>
-            </div>
-            <div class="btn-box">
-              <button class="btn">
-                View
-              </button>
-            </div>
-          </div>
-          <div class="project">
-            <img alt="" class="project-image three" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d46.png">
-            <div class="overlay">
-              <div class="overlay-inner">
-                <button class="close">
-                  Close X
-                </button>
-                <div class="hdImgs">
-                  <img class="squareImg two" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d46.png">
-                </div>
-              </div>
-            </div>
-            <div class="btn-box">
-              <button class="btn">
-                View
-              </button>
-            </div>
-          </div>
-          <div class="project">
-            <img alt="" class="project-image three" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d46.png">
-            <div class="overlay">
-              <div class="overlay-inner">
-                <button class="close">
-                  Close X
-                </button>
-                <div class="hdImgs">
-                  <img class="squareImg two" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d46.png">
-                </div>
-              </div>
-            </div>
-            <div class="btn-box">
-              <button class="btn">
-                View
-              </button>
-            </div>
-          </div>
-          <div class="project">
-            <img alt="" class="project-image one" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d41.png">
-            <div class="overlay">
-              <div class="overlay-inner">
-                <button class="close">
-                  Close X
-                </button>
-                <div class="hdImgs">
-                  <img class="squareImg two" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d41.png">
-                </div>
-              </div>
-            </div>
-            <div class="btn-box">
-              <button class="btn">
-                View
-              </button>
-            </div>
-          </div>
-          <div class="project">
-            <img alt="" class="project-image two" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d43.png">
-            <div class="overlay">
-              <div class="overlay-inner">
-                <button class="close">
-                  Close X
-                </button>
-                <div class="hdImgs">
-                  <img class="squareImg two" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d43.png">
-                </div>
-              </div>
-            </div>
-            <div class="btn-box">
-              <button class="btn">
-                View
-              </button>
-            </div>
-          </div>
-          <div class="project">
-            <img alt="" class="project-image three" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d46.png">
-            <div class="overlay">
-              <div class="overlay-inner">
-                <button class="close">
-                  Close X
-                </button>
-                <div class="hdImgs">
-                  <img class="squareImg two" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d46.png">
-                </div>
-              </div>
-            </div>
-            <div class="btn-box">
-              <button class="btn">
-                View
-              </button>
-            </div>
-          </div>
-          <div class="project">
-            <img alt="" class="project-image three" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d43.png">
-            <div class="overlay">
-              <div class="overlay-inner">
-                <button class="close">
-                  Close X
-                </button>
-                <div class="hdImgs">
-                  <img class="squareImg two" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d43.png">
-                </div>
-              </div>
-            </div>
-            <div class="btn-box">
-              <button class="btn">
-                View
-              </button>
-            </div>
-          </div>
-          <div class="project">
-            <img alt="" class="project-image one" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d44.png">
-            <div class="overlay">
-              <div class="overlay-inner">
-                <button class="close">
-                  Close X
-                </button>
-                <div class="hdImgs">
-                  <img class="squareImg two" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d44.png">
-                </div>
-              </div>
-            </div>
-            <div class="btn-box">
-              <button class="btn">
-                View
-              </button>
-            </div>
-          </div>
-          <div class="project">
-            <img alt="" class="project-image two" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d45.png">
-            <div class="overlay">
-              <div class="overlay-inner">
-                <button class="close">
-                  Close X
-                </button>
-                <div class="hdImgs">
-                  <img class="squareImg two" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d45.png">
-                </div>
-              </div>
-            </div>
-            <div class="btn-box">
-              <button class="btn">
-                View
-              </button>
-            </div>
-          </div>
-          <div class="project">
-            <img alt="" class="project-image three" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d46.png">
-            <div class="overlay">
-              <div class="overlay-inner">
-                <button class="close">
-                  Close X
-                </button>
-                <div class="hdImgs">
-                  <img class="squareImg two" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d46.png">
-                </div>
-              </div>
-            </div>
-            <div class="btn-box">
-              <button class="btn">
-                View
-              </button>
-            </div>
-          </div>
-          <div class="project">
-            <img alt="" class="project-image one" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d41.png">
-            <div class="overlay">
-              <div class="overlay-inner">
-                <button class="close">
-                  Close X
-                </button>
-                <div class="hdImgs">
-                  <img class="squareImg two" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d41.png">
-                </div>
-              </div>
-            </div>
-            <div class="btn-box">
-              <button class="btn">
-                View
-              </button>
-            </div>
-          </div>
-          <div class="project">
-            <img alt="" class="project-image two" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d43.png">
-            <div class="overlay">
-              <div class="overlay-inner">
-                <button class="close">
-                  Close X
-                </button>
-                <div class="hdImgs">
-                  <img class="squareImg two" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d43.png">
-                </div>
-              </div>
-            </div>
-            <div class="btn-box">
-              <button class="btn">
-                View
-              </button>
-            </div>
-          </div>
-          <div class="project">
-            <img alt="" class="project-image three" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d46.png">
-            <div class="overlay">
-              <div class="overlay-inner">
-                <button class="close">
-                  Close X
-                </button>
-                <div class="hdImgs">
-                  <img class="squareImg two" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d46.png">
-                </div>
-              </div>
-            </div>
-            <div class="btn-box">
-              <button class="btn">
-                View
-              </button>
-            </div>
-          </div>
-          <div class="project">
-            <img alt="" class="project-image one" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d44.png">
-            <div class="overlay">
-              <div class="overlay-inner">
-                <button class="close">
-                  Close X
-                </button>
-                <div class="hdImgs">
-                  <img class="squareImg two" src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d44.png">
-                </div>
-              </div>
-            </div>
-            <div class="btn-box">
-              <button class="btn">
-                View
-              </button>
-            </div>
-          </div>
         </div>
-        <div class="responsive-container-block textContainer">
-          <p class="text-blk optionsText">
-            Options
-          </p>
-          <p class="text-blk list all active" data-filter="all">
-            All
-          </p>
-          <p class="text-blk list" data-filter="one">
-            One
-          </p>
-          <p class="text-blk list" data-filter="two">
-            Two
-          </p>
-          <p class="text-blk list" data-filter="three">
-            Three
-          </p>
-        </div>
-      </div>
     </div>
-  </div>
+</div>
+
+<?php $__env->startPush('scripts'); ?>
+<script>
+    $(document).ready(function() {
+
+        // Show the overlay on clicking the view button
+        $("[unique-script-id='w-w-dm-id'] .btn-box").click(function() {
+            $(this).parent().children(".overlay").show();
+        });
+
+        // Close the overlay when close button is clicked
+        $("[unique-script-id='w-w-dm-id'] .close").click(function() {
+            $("[unique-script-id='w-w-dm-id'] .overlay").hide();
+        });
+
+        // Filtering functionality
+        $("[unique-script-id='w-w-dm-id'] .list").click(function() {
+            const value = $(this).attr('data-filter');
+
+            // Show all images if "All" is selected
+            if (value == 'all') {
+                $("[unique-script-id='w-w-dm-id'] .project").show('1000');
+            } else {
+                // Show only images from the selected gallery
+                $("[unique-script-id='w-w-dm-id'] .project").not('.' + value).hide('1000');
+                $("[unique-script-id='w-w-dm-id'] .project").filter('.' + value).show('1000');
+            }
+
+            // Toggle active class on clicked filter
+            $(this).addClass('active').siblings().removeClass('active');
+        });
+    });
+</script>
+<?php $__env->stopPush(); ?>
+
+
+
+
+
 <?php $__env->startPush('styles'); ?>
 <style>
     .desktop_4 * {
@@ -1373,37 +888,5 @@ body {
   }
 }
 </style>
-<?php $__env->stopPush(); ?>
-
-
-<?php $__env->startPush('scripts'); ?>
-<script>
-    $(document).ready(function() {
-
-$("[unique-script-id='w-w-dm-id'] .btn-box").click(function() {
-  $(this).parent().children(".overlay").show();
-
-});
-
-
-$("[unique-script-id='w-w-dm-id'] .close").click(function() {
-  $("[unique-script-id='w-w-dm-id'] .overlay").hide();
-});
-
-$("[unique-script-id='w-w-dm-id'] .list").click(function() {
-  const value = $(this).attr('data-filter');
-  if (value == 'all') {
-    $("[unique-script-id='w-w-dm-id'] .project-image").show('1000');
-  } else {
-    $("[unique-script-id='w-w-dm-id'] .project-image").not('.' + value).hide('1000');
-    $("[unique-script-id='w-w-dm-id'] .project-image").filter('.' + value).show('1000');
-  }
-})
-$("[unique-script-id='w-w-dm-id'] .list").click(function() {
-  $(this).addClass('active').siblings().removeClass('active');
-})
-});
-</script>
-
 <?php $__env->stopPush(); ?>
 <?php /**PATH I:\applications\laragon\laragon\www\RealmLaravel10Website\resources\views/components/front-gallery.blade.php ENDPATH**/ ?>

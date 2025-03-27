@@ -27,13 +27,13 @@
         <div class="container-fluid  h-100"">
             <!-- Small boxes (Stat box) -->
             <div class="row">
-                
-                <div class="col-md-12 ">	
+
+                <div class="col-md-12 ">
                     @if(Session::has('success'))
                     <div class="alert alert-success">
                         {{ Session::get('success') }}
                     </div>
-                    @endif						
+                    @endif
                     <form action="" method="post" name="settingsFrom" id="settingsFrom">
                         <div class="card">
                             {{-- <div class="card-header">
@@ -78,7 +78,7 @@
                                         <label for="name">Instagram Url</label>
                                         <input type="text" value="{{ (!empty($settings->instagram_url)) ? $settings->instagram_url : '' }}"  name="instagram_url" id="instagram_url" class="form-control">
                                     </div>
-                                    
+
 
                                 </div>
 
@@ -102,7 +102,7 @@
                                             <label for="name">Contact Card Three</label>
                                             <textarea name="contact_card_three" id="contact_card_three" class="summernote" >{!! (!empty($settings->contact_card_three)) ? $settings->contact_card_three : '' !!}</textarea>
                                         </div>
-                                    </div> 
+                                    </div>
 
                                     <div class="col-md-6">
                                         <label for="">Featured Services</label>
@@ -111,9 +111,9 @@
                                                 <select name="service" id="service" class="form-control">
                                                     @if($services)
                                                     @foreach ($services as $service)
-                                                        <option value="{{  $service->id }}">{{ $service->name }}</option>    
+                                                        <option value="{{  $service->id }}">{{ $service->name }}</option>
                                                     @endforeach
-                                                    @endif                                                    
+                                                    @endif
                                                 </select>
                                             </div>
                                             <div class="col">
@@ -143,15 +143,27 @@
                                                 <div class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 7</div> --}}
                                             </div>
                                         </div>
-                                    </div>                                                                
+                                    </div>
 
                                 </div>
-                                
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="name">Call To Action</label>
+                                        <input type="text" value="{{ (!empty($settings->cta_title)) ? $settings->cta_title : '' }}" name="cta_title" id="cta_title" class="form-control mt-2" placeholder=""{{ $settings->cta_title??'title' }}>"">
+                                        <input type="text" value="{{ (!empty($settings->cta_link)) ? $settings->cta_link : '' }}" name="cta_link" id="cta_link" class="form-control mt-2" placeholder="{{ $settings->cta_link??'title' }}">
+
+                                        <textarea name="cta_description" id="contact_card_three" class="summernote" >{!! (!empty($settings->cta_description)) ? $settings->cta_description : '' !!}</textarea>
+
+
+                                    </div>
+                                </div>
+
                                 <button type="submit" name="submit" class="btn btn-primary">Submit</button>
                             </div>
                         </div>
-                    </form>                   
-                </div>                            
+                    </form>
+                </div>
             </div>
             <!-- /.row -->
             <!-- /.row (main row) -->
@@ -193,13 +205,13 @@
             alert("You can not select same service again.");
         } else {
             $("#services-wrapper").append(html);
-        }        
+        }
     }
 
     $("#settingsFrom").submit(function(event){
         event.preventDefault();
-        $("button[type='submit']").prop('disabled',true);     
-        
+        $("button[type='submit']").prop('disabled',true);
+
         var servicesString = $("#services-wrapper").sortable('serialize');
         //console.log(servicesString);
         //return false;
@@ -216,14 +228,14 @@
 
                 if(response.status == 200) {
                     // no error
-                    window.location.href = '{{ route("settings.index") }}'; 
+                    window.location.href = '{{ route("settings.index") }}';
                 } else {
                     // Here we will show errors
                     if(response.errors.website_title) {
                         $('.website-title-error').html(response.errors.website_title);
                     } else {
                         $('.website-title-error').html('');
-                    }                    
+                    }
                 }
             }
         });
@@ -243,7 +255,7 @@
         })
     });
 
-    
+
 </script>
 
 @endsection

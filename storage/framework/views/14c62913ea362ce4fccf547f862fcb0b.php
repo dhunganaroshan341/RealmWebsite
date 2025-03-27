@@ -25,14 +25,14 @@
         <div class="container-fluid  h-100"">
             <!-- Small boxes (Stat box) -->
             <div class="row">
-                
-                <div class="col-md-12 ">	
+
+                <div class="col-md-12 ">
                     <?php if(Session::has('success')): ?>
                     <div class="alert alert-success">
                         <?php echo e(Session::get('success')); ?>
 
                     </div>
-                    <?php endif; ?>						
+                    <?php endif; ?>
                     <form action="" method="post" name="settingsFrom" id="settingsFrom">
                         <div class="card">
                             
@@ -75,7 +75,7 @@
                                         <label for="name">Instagram Url</label>
                                         <input type="text" value="<?php echo e((!empty($settings->instagram_url)) ? $settings->instagram_url : ''); ?>"  name="instagram_url" id="instagram_url" class="form-control">
                                     </div>
-                                    
+
 
                                 </div>
 
@@ -99,7 +99,7 @@
                                             <label for="name">Contact Card Three</label>
                                             <textarea name="contact_card_three" id="contact_card_three" class="summernote" ><?php echo (!empty($settings->contact_card_three)) ? $settings->contact_card_three : ''; ?></textarea>
                                         </div>
-                                    </div> 
+                                    </div>
 
                                     <div class="col-md-6">
                                         <label for="">Featured Services</label>
@@ -108,9 +108,9 @@
                                                 <select name="service" id="service" class="form-control">
                                                     <?php if($services): ?>
                                                     <?php $__currentLoopData = $services; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $service): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                        <option value="<?php echo e($service->id); ?>"><?php echo e($service->name); ?></option>    
+                                                        <option value="<?php echo e($service->id); ?>"><?php echo e($service->name); ?></option>
                                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                                    <?php endif; ?>                                                    
+                                                    <?php endif; ?>
                                                 </select>
                                             </div>
                                             <div class="col">
@@ -135,15 +135,27 @@
                                                 
                                             </div>
                                         </div>
-                                    </div>                                                                
+                                    </div>
 
                                 </div>
-                                
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="name">Call To Action</label>
+                                        <input type="text" value="<?php echo e((!empty($settings->cta_title)) ? $settings->cta_title : ''); ?>" name="cta_title" id="cta_title" class="form-control mt-2" placeholder=""<?php echo e($settings->cta_title??'title'); ?>>"">
+                                        <input type="text" value="<?php echo e((!empty($settings->cta_link)) ? $settings->cta_link : ''); ?>" name="cta_link" id="cta_link" class="form-control mt-2" placeholder="<?php echo e($settings->cta_link??'title'); ?>">
+
+                                        <textarea name="cta_description" id="contact_card_three" class="summernote" ><?php echo (!empty($settings->cta_description)) ? $settings->cta_description : ''; ?></textarea>
+
+
+                                    </div>
+                                </div>
+
                                 <button type="submit" name="submit" class="btn btn-primary">Submit</button>
                             </div>
                         </div>
-                    </form>                   
-                </div>                            
+                    </form>
+                </div>
             </div>
             <!-- /.row -->
             <!-- /.row (main row) -->
@@ -185,13 +197,13 @@
             alert("You can not select same service again.");
         } else {
             $("#services-wrapper").append(html);
-        }        
+        }
     }
 
     $("#settingsFrom").submit(function(event){
         event.preventDefault();
-        $("button[type='submit']").prop('disabled',true);     
-        
+        $("button[type='submit']").prop('disabled',true);
+
         var servicesString = $("#services-wrapper").sortable('serialize');
         //console.log(servicesString);
         //return false;
@@ -208,14 +220,14 @@
 
                 if(response.status == 200) {
                     // no error
-                    window.location.href = '<?php echo e(route("settings.index")); ?>'; 
+                    window.location.href = '<?php echo e(route("settings.index")); ?>';
                 } else {
                     // Here we will show errors
                     if(response.errors.website_title) {
                         $('.website-title-error').html(response.errors.website_title);
                     } else {
                         $('.website-title-error').html('');
-                    }                    
+                    }
                 }
             }
         });
@@ -235,8 +247,9 @@
         })
     });
 
-    
+
 </script>
 
 <?php $__env->stopSection(); ?>
+
 <?php echo $__env->make('admin.layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH I:\applications\laragon\laragon\www\RealmLaravel10Website\resources\views/admin/settings.blade.php ENDPATH**/ ?>

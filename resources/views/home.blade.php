@@ -45,44 +45,34 @@
 </section>
 
 
-<section class="section-2  py-5">
+<section class="section-2 py-5">
     <div class="container py-2">
         <div class="row">
             <div class="col-md-6 align-items-center d-flex">
                 <div class="about-block">
-                    <h1 class="title-color">Welcome </h1>
-                    <div class="mt-2 mb-3 text-muted">To, Realm  Infotech!</div>
-                    <p>At Realm Infotech, we specialize in delivering top-notch services
-                         in Social Media Management, Graphic Design, Website Development,
-                         and SEO. We are dedicated to helping businesses grow and enhance
-                         their online presence through creative solutions and cutting-edge digital strategies.
-                          Whether you're looking to elevate your brand with captivating graphics
-                         or boost your website's visibility, we've got you covered!</p>
-                         <p>
-                            Our expertise lies in creating dynamic and visually appealing digital experiences
-                            that resonate with your audience. From expertly managing your social media presence
-                            to designing stunning visuals that represent your brand, we ensure your business stands out.
-                             Our SEO services are focused on improving your website's ranking, driving more organic traffic,
-                            and ensuring that your online platform is optimized for success.
-                         </p>
-                         <p>
-                            At Realm Infotech, we believe in the power of innovation and creativity.
-                             With our integrated services, we help you navigate the ever-evolving digital landscape,
-                              making sure your brand stays ahead of the competition.
-                               Let us help you create impactful digital experiences that will leave a lasting
-                            impression on your audience and take your business to new heights!
-                         </p>
+                    <h1 class="title-color">
+                        {{ isset($home_welcome_content['title']) ? $home_welcome_content['title'] : 'Welcome' }}
+                    </h1>
+                    <div class="mt-2 mb-3 text-muted">
+                        {{ isset($home_welcome_content['subtitle']) ? $home_welcome_content['subtitle'] : 'To, Realm Infotech!' }}
+                    </div>
+                    <p>
+                        {{ isset($home_welcome_content['description']) ? $home_welcome_content['description'] :
+                        'At Realm Infotech, we specialize in delivering top-notch services in Social Media Management, Graphic Design, Website Development, and SEO. We are dedicated to helping businesses grow and enhance their online presence through creative solutions and cutting-edge digital strategies.' }}
+                    </p>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="image-red-background">
-                    <img src="{{ asset('assets/images/about-us.jpg') }}" alt="" class="w-100">
+                    <img src="{{ isset($home_welcome_content['image']) ? asset($home_welcome_content['image']) : asset('assets/images/about-us.jpg') }}"
+                         alt="Welcome Image"
+                         class="w-100">
                 </div>
-
             </div>
         </div>
     </div>
 </section>
+
 
 <section class="section-3 py-5">
     <div class="container">

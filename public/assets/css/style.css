@@ -1,9 +1,10 @@
 :root {
-    --realmbg: #222275;
+    --realmbg: #2c2a73;
     --realm-dark: #1c1c50;
     --realm-light: #6060ad;
+    --realm-white: #f9f9f9;
 
-    --realmbg-yellow: #f5cb46;
+    --realmbg-yellow: #f4ca47;
     --realm-yellow-dark: #d7ab1c;
 }
 body{
@@ -23,7 +24,7 @@ a{
 .navigation .dropdown-menu {
     padding: 0px;
     border: 0px;
-    border-top: 5px solid var(--realmbg);;
+    border-top: 5px solid var(--realmbg);
     background: #fff;
     border-radius: 0px;
 }
@@ -42,7 +43,7 @@ a{
 }
 
 #navbarmain .nav-link:hover, #navbarmain .active .nav-link {
-    color: var(--realmbg);;
+    color: var(--realmbg-yellow);;
 }
 
 #navbarmain .nav-link {
@@ -67,9 +68,9 @@ a{
     color: var(--realmbg);;
 }
 .navbar-logo {
-    height: 40px; /* Adjust as needed */
-    width: auto; /* Maintain aspect ratio */
-    max-width: 100%; /* Prevents logo overflow */
+    height: 55px;
+    width: auto;
+    max-width: 100%;
 }
 
 .hero .carousel-item{
@@ -331,14 +332,14 @@ a{
 }
 
 .footer.gray-bg{
-    background-color: #f4f9fc;
+    background-color:var(--realmbg);
     padding-bottom: 10px;
 }
 
 
 
 .footer-menu a {
-    color: #6F8BA4;
+    color: white;
     line-height: 35px;
 }
 
@@ -355,11 +356,11 @@ a{
 
 
 .footer h4 {
-    color:#223a66;
+    color :var(--realm-white);
 }
 .footer h4 a{
     font-size: 16px;
-    color: #6F8BA4;
+    color:var(--realm-white);
 }
 
 .footer h4 i{

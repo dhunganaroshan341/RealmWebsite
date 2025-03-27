@@ -61,7 +61,7 @@
             <div class="container" >
                 <div class="logo-container">
                     <a class="navbar-brand" href="<?php echo e(url('/')); ?>">
-                        <img src="<?php echo e(asset('assets/images/logo.jpg')); ?>" alt="Logo" class="navbar-logo">
+                        <img src="<?php echo e(asset('assets/images/logo.png')); ?>" alt="Logo" class="navbar-logo">
                     </a>
                 </div>
                 <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarmain" aria-controls="navbarmain" aria-expanded="false" aria-label="Toggle navigation">
