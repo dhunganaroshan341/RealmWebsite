@@ -25,7 +25,7 @@
         <div class="container-fluid  h-100"">
             <!-- Small boxes (Stat box) -->
             <div class="row">
-                <div class="col-md-12 ">							
+                <div class="col-md-12 ">
                     <form action="" method="post" name="editServiceForm" id="editServiceForm">
                         <div class="card">
                             <div class="card-header">
@@ -48,16 +48,16 @@
                                         <input type="hidden" name="image_id" id="image_id" value="">
                                         <label for="Image">Image</label>
                                         <div id="image" class="dropzone dz-clickable">
-                                            <div class="dz-message needsclick">    
-                                                <br>Drop files here or click to upload.<br><br>                                            
+                                            <div class="dz-message needsclick">
+                                                <br>Drop files here or click to upload.<br><br>
                                             </div>
                                         </div>
 
                                         <?php if(!empty($service->image)): ?>
-                                        <img class="img-thumbnail my-4" src="<?php echo e(asset('uploads/services/thumb/small/'.$service->image)); ?>" width="300">                                       
+                                        <img class="img-thumbnail my-4" src="<?php echo e(asset('uploads/services/thumb/small/'.$service->image)); ?>" width="300">
                                         <?php endif; ?>
 
-                                        
+
                                     </div>
                                     <div class="col-md-6">
                                         <label for="">Short Description</label>
@@ -77,7 +77,7 @@
                             </div>
                         </div>
                     </form>
-                </div>                            
+                </div>
             </div>
             <!-- /.row -->
             <!-- /.row (main row) -->
@@ -91,8 +91,8 @@
 <?php $__env->startSection('extraJs'); ?>
 
 <script type="text/javascript">
-    Dropzone.autoDiscover = false;    
-    const dropzone = $("#image").dropzone({ 
+    Dropzone.autoDiscover = false;
+    const dropzone = $("#image").dropzone({
         init: function() {
             this.on('addedfile', function(file) {
                 if (this.files.length > 1) {
@@ -111,7 +111,7 @@
         }
     });
 
-    
+
     $("#editServiceForm").submit(function(event){
         event.preventDefault();
         $("button[type='submit']").prop('disabled',true);
@@ -125,7 +125,7 @@
 
                 if(response.status == 200) {
                     // no error
-                    window.location.href = '<?php echo e(route("serviceList")); ?>'; 
+                    window.location.href = '<?php echo e(route("serviceList")); ?>';
                 } else {
                     // Here we will show errors
                     $('.name-error').html(response.errors.name);
@@ -136,4 +136,5 @@
 </script>
 
 <?php $__env->stopSection(); ?>
+
 <?php echo $__env->make('admin.layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH I:\applications\laragon\laragon\www\RealmLaravel10Website\resources\views/admin/services/edit.blade.php ENDPATH**/ ?>

@@ -10,3 +10,4 @@
 .realm-bg-yellow {
     background-color: var(--realmbg-yellow);
 }
+@import "tailwindcss";

@@ -1,0 +1,24 @@
+# march 27th 25 so
+About admin dashboard
+the things we neeed to show there
+1. Total number of users
+2. total numbers of clients
+3. total numbers of galleries
+4. total numbers of images
+5. total numbers of videos
+5.total number of client gallery-images videos
+6. change of plans, simply all the modals total number that's it and if that model
+is available then show view page option with a button that's it
+with services,blogs and all i just want to show the number so give me a card view with the icon-class option as well whichwould be passed fromthe variable as key valud paier like
+admindata = {
+    'users': {icon:'fa fa-users',data: 25},
+    'clients': {icon:'fa fa-users',data: 25},
+    'galleries': {icon:'fa fa-users',data: 25},
+    'images': {icon:'fa fa-users',data: 25},
+    'videos': {icon:'fa fa-users',data: 25},
+    'clients': 'fa fa-users',
+    'galleries': 'fa fa-users',
+    'images': 'fa fa-users',
+    'videos': 'fa fa-users',
+    'client_gallery_images_videos': 'fa fa-users',
+}
