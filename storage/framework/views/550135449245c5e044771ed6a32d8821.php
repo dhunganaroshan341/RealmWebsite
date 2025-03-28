@@ -21,52 +21,29 @@
 <?php unset($__componentOriginald2ae49ba783753123dbbcb785eb0eb0e); ?>
 <?php endif; ?>
 
-<div class="desktop_7" unique-script-id="w-w-dm-id">
-    <div class="responsive-container-block bigContainer">
-      <div class="responsive-container-block Container">
-        <div class="responsive-container-block optionsContainer">
-          <p class="text-blk list all active" data-filter="all">
-            All
-          </p>
-          <?php
-              $galleries = get_galleries();
-          ?>
-          <?php $__currentLoopData = $galleries; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $gallery): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-          <p class="text-blk list" data-filter="<?php echo e($gallery->title); ?>">
-            <?php echo e($gallery->title); ?>
 
-          </p>
-          <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-        </div>
 
-        <div class="responsive-container-block imageContainer">
-            <?php $__currentLoopData = $galleries; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $gallery): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <?php $__currentLoopData = $gallery->images; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $image): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <div class="project <?php echo e($gallery->title); ?>">  
-                    <div class="overlay">
-                        <div class="overlay-inner">
-                            <button class="close">
-                                Close X
-                            </button>
-                            <div class="hdImgs">
-                                <img alt="" class="againImg" src="<?php echo e($image->image_path ?? 'https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d71.png'); ?>">
-                            </div>
-                        </div>
-                    </div>
-                    <img class="squareImg one <?php echo e($gallery->title); ?>" src="<?php echo e($image->image_path ?? 'https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d71.png'); ?>">
-                    <div class="btn-box">
-                        <button class="btn">
-                            View
-                        </button>
-                    </div>
-                </div>
-                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-        </div>
-      </div>
-    </div>
-  </div>
 </section>
+<?php if (isset($component)) { $__componentOriginal861187723392569f4df7cda6d2528aeb = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal861187723392569f4df7cda6d2528aeb = $attributes; } ?>
+<?php $component = App\View\Components\DynamicGallery::resolve([] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component->withName('dynamic-gallery'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(App\View\Components\DynamicGallery::class))->getConstructor()): ?>
+<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
+<?php endif; ?>
+<?php $component->withAttributes([]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal861187723392569f4df7cda6d2528aeb)): ?>
+<?php $attributes = $__attributesOriginal861187723392569f4df7cda6d2528aeb; ?>
+<?php unset($__attributesOriginal861187723392569f4df7cda6d2528aeb); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal861187723392569f4df7cda6d2528aeb)): ?>
+<?php $component = $__componentOriginal861187723392569f4df7cda6d2528aeb; ?>
+<?php unset($__componentOriginal861187723392569f4df7cda6d2528aeb); ?>
+<?php endif; ?>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startPush('scripts'); ?>

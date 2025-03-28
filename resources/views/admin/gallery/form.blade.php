@@ -69,7 +69,7 @@
         $('#galleryForm').submit(function(e) {
             e.preventDefault();
             let formData = $(this).serializeArray();
-            formData.push({ name: 'images', value: JSON.stringify(uploadedFiles) });
+            formData.push({ name: 'file_paths', value: JSON.stringify(uploadedFiles) });
 
             $.ajax({
                 url: "{{ route('galleries.store') }}",

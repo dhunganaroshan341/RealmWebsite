@@ -1,5 +1,4 @@
 <?php $__env->startSection('content'); ?>
-
     <!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="container-fluid">
@@ -34,7 +33,8 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="name">Name</label>
-                                    <input type="text" value="<?php echo e($service->name); ?>" name="name" id="name" class="form-control">
+                                    <input type="text" value="<?php echo e($service->name); ?>" name="name" id="name"
+                                        class="form-control">
                                     <p class="error name-error"></p>
                                 </div>
 
@@ -54,7 +54,8 @@
                                         </div>
 
                                         <?php if(!empty($service->image)): ?>
-                                        <img class="img-thumbnail my-4" src="<?php echo e(asset('uploads/services/thumb/small/'.$service->image)); ?>" width="300">
+                                            <img class="img-thumbnail my-4" src="<?php echo e(asset($service->image)); ?>"
+                                                width="300">
                                         <?php endif; ?>
 
 
@@ -68,8 +69,10 @@
                                 <div class="form-group mt-4">
                                     <label for="status">Status</label>
                                     <select name="status" id="status" class="form-control">
-                                        <option value="1" <?php echo e(($service->status == 1) ? 'selected' : ''); ?>>Active</option>
-                                        <option value="0"  <?php echo e(($service->status == 0) ? 'selected' : ''); ?>>Block</option>
+                                        <option value="1" <?php echo e($service->status == 1 ? 'selected' : ''); ?>>Active
+                                        </option>
+                                        <option value="0" <?php echo e($service->status == 0 ? 'selected' : ''); ?>>Block
+                                        </option>
                                     </select>
                                 </div>
 
@@ -89,52 +92,62 @@
 
 
 <?php $__env->startSection('extraJs'); ?>
-
-<script type="text/javascript">
-    Dropzone.autoDiscover = false;
-    const dropzone = $("#image").dropzone({
-        init: function() {
-            this.on('addedfile', function(file) {
-                if (this.files.length > 1) {
-                    this.removeFile(this.files[0]);
-                }
-            });
-        },
-        url:  "<?php echo e(route('tempUpload')); ?>",
-        maxFiles: 1,
-        addRemoveLinks: true,
-        acceptedFiles: "image/jpeg,image/png,image/gif",
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-        }, success: function(file, response){
-            $("#image_id").val(response.id);
-        }
-    });
-
-
-    $("#editServiceForm").submit(function(event){
-        event.preventDefault();
-        $("button[type='submit']").prop('disabled',true);
-        $.ajax({
-            url: '<?php echo e(route("service.edit.update",$service->id)); ?>',
-            type: 'POST',
-            dataType: 'json',
-            data: $("#editServiceForm").serializeArray(),
-            success: function(response){
-                $("button[type='submit']").prop('disabled',false);
-
-                if(response.status == 200) {
-                    // no error
-                    window.location.href = '<?php echo e(route("serviceList")); ?>';
-                } else {
-                    // Here we will show errors
-                    $('.name-error').html(response.errors.name);
-                }
+    <script type="text/javascript">
+        Dropzone.autoDiscover = false;
+        var myDropzone = new Dropzone("#image", {
+            url: "<?php echo e(route('service.uploadImage')); ?>",
+            paramName: "file",
+            maxFilesize: 2,
+            acceptedFiles: "image/*",
+            addRemoveLinks: true,
+            headers: {
+                'X-CSRF-TOKEN': "<?php echo e(csrf_token()); ?>"
+            },
+            success: function(file, response) {
+                $("#image_id").val(response.image_path);
+            },
+            error: function(file, response) {
+                console.log(response);
             }
         });
-    });
-</script>
 
+
+        $("#editServiceForm").submit(function(event) {
+            event.preventDefault();
+            $("button[type='submit']").prop('disabled', true);
+            $.ajax({
+                url: '<?php echo e(route('service.edit.update', $service->id)); ?>',
+                type: 'POST',
+                dataType: 'json',
+                data: $("#editServiceForm").serializeArray(),
+                success: function(response) {
+                    $("button[type='submit']").prop('disabled', false);
+
+                    if (response.status == true) {
+                        $("#description").summernote("code", "");
+                        $("#editServiceForm").trigger("reset");
+                        Lobibox.notify('success', {
+                            position: 'top right',
+                            msg: response.message
+                        });
+                        // no error
+                    } else {
+                        // Here we will show errors
+                        $('.name-error').html(response.errors.name);
+                    }
+                },
+                error: function(xhr) {
+                    Lobibox.notify('error', {
+                        position: 'top right',
+                        msg: 'Something went wrong!'
+                    });
+                },
+                complete: function() {
+                    $("button[type='submit']").prop('disabled', false);
+                }
+            });
+        });
+    </script>
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('admin.layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH I:\applications\laragon\laragon\www\RealmLaravel10Website\resources\views/admin/services/edit.blade.php ENDPATH**/ ?>

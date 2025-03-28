@@ -1,0 +1,1 @@
+<?php /**PATH I:\applications\laragon\laragon\www\RealmLaravel10Website\resources\views/components/pop-up-notice.blade.php ENDPATH**/ ?>

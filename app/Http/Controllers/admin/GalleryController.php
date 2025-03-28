@@ -4,17 +4,21 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Client;
 use App\Models\Gallery;
+use App\Models\GalleryAlbum;
+use App\Models\GalleryMedia;
 use App\Models\Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class GalleryController extends Controller
+class   GalleryController extends Controller
 {
     // Show gallery form
     public function index(){
-        $galleries = Gallery::with('images')->get();
-        return view('admin.gallery.list',compact('galleries'));
+        $clients = Client::all();
+        $galleries = GalleryAlbum::with('media')->get();
+        return view('admin.gallery.list',compact('galleries','clients'));
     }
     public function create()
     {
@@ -23,19 +27,40 @@ class GalleryController extends Controller
 
     // Store new gallery with images
     public function store(Request $request)
-{
-    $gallery = $request->gallery_id
-        ? Gallery::findOrFail($request->gallery_id)
-        : Gallery::create(['title' => $request->title]);
+    {
+        // Validate input data
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'type' => 'required|string|in:image,video,pdf', // Define the media type
+            'images' => 'required|array', // This is now an array of files
+            'images.*' => 'required|mimes:jpeg,png,jpg,gif,svg,mp4,pdf|max:2048',
+        ]);
 
-    $images = json_decode($request->images, true);
-    foreach ($images as $image) {
-        Image::create(['gallery_id' => $gallery->id, 'image_path' => $image]);
+        // Create or find the album
+        $gallery = $request->gallery_album_id
+            ? GalleryAlbum::findOrFail($request->gallery_album_id)
+            : GalleryAlbum::create([
+                'title' => $request->title,
+                'type' => $request->type, // Set the album type (image/video/pdf)
+                'client_id' => $request->client_id ?? null,
+            ]);
+
+        // Store files and link them to the album
+        foreach ($request->file('images') as $file) {
+            $filePath = $file->store('public/gallery_files'); // Save the file and store its path
+
+            // Save media to the database (store file paths)
+            GalleryMedia::create([
+                'gallery_album_id' => $gallery->id,
+                'file_paths' => $filePath, // Save the path of the file
+            ]);
+        }
+
+        session()->flash('success', 'Gallery created successfully!');
+
+        return response()->json(['message' => 'Gallery saved successfully!']);
     }
-    session()->push('sucess', 'gallery Image uploaded successfully!');
 
-    return response()->json(['message' => 'Gallery saved successfully!']);
-}
 
 public function tempUpload(Request $request)
 {
@@ -53,7 +78,7 @@ public function tempUpload(Request $request)
     // Show gallery edit form
     public function edit($id)
     {
-        $galleries = Gallery::findOrFail($id);
+        $galleries = GalleryAlbum::findOrFail($id);
         return view('admin.gallery.form', compact('galleries'));
     }
 
@@ -67,7 +92,7 @@ public function tempUpload(Request $request)
         ]);
 
         // Update gallery
-        $gallery = Gallery::findOrFail($id);
+        $gallery = GalleryAlbum::findOrFail($id);
         $gallery->update([
             'title' => $request->title,
         ]);
@@ -78,9 +103,9 @@ public function tempUpload(Request $request)
                 $path = $image->store('public/gallery_images');
 
                 // Save image to database
-                Image::create([
-                    'gallery_id' => $gallery->id,
-                    'image_path' => $path,
+                GalleryMedia::create([
+                    'gallery_album_id' => $gallery->id,
+                    'file_paths' => $path,
                 ]);
             }
         }

@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Gallery;
+use App\Models\GalleryAlbum;
+use App\Models\GalleryMedia;
 use App\Models\Image;
 use Illuminate\Support\Facades\Storage;
 
@@ -23,7 +25,7 @@ class GallerySeeder extends Seeder
         $galleries = ['cg', 'realm', 'hinwa', 'aitm', 'medhisa'];
 
         foreach ($galleries as $galleryTitle) {
-            $gallery = Gallery::create(['title' => $galleryTitle]);
+            $gallery = GalleryAlbum::create(['title' => $galleryTitle,'type'=>'image']);
 
             // Generate 5 random image paths
             $images = [];
@@ -32,9 +34,9 @@ class GallerySeeder extends Seeder
                 $images[] = $imagePath;
 
                 // Save each image in the images table
-                Image::create([
-                    'gallery_id' => $gallery->id,
-                    'image_path' => $imagePath,
+                GalleryMedia::create([
+                    'gallery_album_id' => $gallery->id,
+                    'file_paths' => $imagePath,
                 ]);
             }
         }

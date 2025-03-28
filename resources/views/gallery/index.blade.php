@@ -3,51 +3,10 @@
 <section class="hero">
     <x-starting-banner :title="$page['title']" :description="$page['description']" />
 
-<div class="desktop_7" unique-script-id="w-w-dm-id">
-    <div class="responsive-container-block bigContainer">
-      <div class="responsive-container-block Container">
-        <div class="responsive-container-block optionsContainer">
-          <p class="text-blk list all active" data-filter="all">
-            All
-          </p>
-          @php
-              $galleries = get_galleries();
-          @endphp
-          @foreach ($galleries as $gallery)
-          <p class="text-blk list" data-filter="{{ $gallery->title }}">
-            {{ $gallery->title }}
-          </p>
-          @endforeach
-        </div>
+{{-- the workable gallery previous ones is in temporary.txt file  --}}
 
-        <div class="responsive-container-block imageContainer">
-            @foreach ($galleries as $gallery)
-                @foreach ($gallery->images as $image)
-                <div class="project {{ $gallery->title }}">  {{-- Add gallery title as a class --}}
-                    <div class="overlay">
-                        <div class="overlay-inner">
-                            <button class="close">
-                                Close X
-                            </button>
-                            <div class="hdImgs">
-                                <img alt="" class="againImg" src="{{ $image->image_path ?? 'https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d71.png' }}">
-                            </div>
-                        </div>
-                    </div>
-                    <img class="squareImg one {{ $gallery->title }}" src="{{ $image->image_path ?? 'https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/d71.png' }}">
-                    <div class="btn-box">
-                        <button class="btn">
-                            View
-                        </button>
-                    </div>
-                </div>
-                @endforeach
-            @endforeach
-        </div>
-      </div>
-    </div>
-  </div>
 </section>
+<x-dynamic-gallery/>
 @endsection
 
 @push('scripts')

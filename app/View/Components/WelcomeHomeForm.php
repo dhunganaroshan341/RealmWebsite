@@ -2,13 +2,11 @@
 
 namespace App\View\Components;
 
-use App\Models\Gallery;
-use App\Models\GalleryAlbum;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class FrontGallery extends Component
+class WelcomeHomeForm extends Component
 {
     /**
      * Create a new component instance.
@@ -23,7 +21,6 @@ class FrontGallery extends Component
      */
     public function render(): View|Closure|string
     {
-        $galleries = GalleryAlbum::with('media')->get();
-        return view('components.front-gallery',compact('galleries'));
+        return view('components.welcome-home-form');
     }
 }

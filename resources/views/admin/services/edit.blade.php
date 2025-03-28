@@ -55,14 +55,9 @@
                                             </div>
                                         </div>
 
-<<<<<<< HEAD
-                                        @if(!empty($service->image))
-                                        <img class="img-thumbnail my-4" src="{{ asset('uploads/services/thumb/small/'.$service->image) }}" width="300">
-=======
                                         @if (!empty($service->image))
                                             <img class="img-thumbnail my-4" src="{{ asset($service->image) }}"
                                                 width="300">
->>>>>>> main
                                         @endif
 
 
@@ -99,49 +94,6 @@
 
 
 @section('extraJs')
-<<<<<<< HEAD
-
-<script type="text/javascript">
-    Dropzone.autoDiscover = false;
-    const dropzone = $("#image").dropzone({
-        init: function() {
-            this.on('addedfile', function(file) {
-                if (this.files.length > 1) {
-                    this.removeFile(this.files[0]);
-                }
-            });
-        },
-        url:  "{{ route('tempUpload') }}",
-        maxFiles: 1,
-        addRemoveLinks: true,
-        acceptedFiles: "image/jpeg,image/png,image/gif",
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-        }, success: function(file, response){
-            $("#image_id").val(response.id);
-        }
-    });
-
-
-    $("#editServiceForm").submit(function(event){
-        event.preventDefault();
-        $("button[type='submit']").prop('disabled',true);
-        $.ajax({
-            url: '{{ route("service.edit.update",$service->id) }}',
-            type: 'POST',
-            dataType: 'json',
-            data: $("#editServiceForm").serializeArray(),
-            success: function(response){
-                $("button[type='submit']").prop('disabled',false);
-
-                if(response.status == 200) {
-                    // no error
-                    window.location.href = '{{ route("serviceList") }}';
-                } else {
-                    // Here we will show errors
-                    $('.name-error').html(response.errors.name);
-                }
-=======
     <script type="text/javascript">
         Dropzone.autoDiscover = false;
         var myDropzone = new Dropzone("#image", {
@@ -158,12 +110,9 @@
             },
             error: function(file, response) {
                 console.log(response);
->>>>>>> main
             }
         });
 
-<<<<<<< HEAD
-=======
 
         $("#editServiceForm").submit(function(event) {
             event.preventDefault();
@@ -201,5 +150,4 @@
             });
         });
     </script>
->>>>>>> main
 @endsection

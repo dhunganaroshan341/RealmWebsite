@@ -48,7 +48,7 @@
             @foreach($galleries as $gallery)
                 <tr>
                     <td>{{ $gallery->title }}</td>
-                    <td>{{ $gallery->images->count() }}</td>
+                    <td>{{ $gallery->media->count() }}</td>
                     <td>
                         <a href="{{ route('galleries.edit', $gallery->id) }}" class="btn btn-info btn-sm">Edit</a>
                         <form action="{{ route('galleries.destroy', $gallery->id) }}" method="POST" style="display:inline-block;">
@@ -63,22 +63,8 @@
     </table>
 
     <!-- Create Gallery Form -->
-    <h2>Create Gallery</h2>
+    <h2>Create Gallery Albums</h2>
 
-    <form action="{{ route('galleries.store') }}" method="POST" enctype="multipart/form-data">
-        @csrf
-
-        <div class="form-group">
-            <label for="title">Gallery Title</label>
-            <input type="text" class="form-control" id="title" name="title" required>
-        </div>
-
-        <div class="form-group">
-            <label for="images">Images</label>
-            <input type="file" class="form-control" id="images" name="images[]" multiple required>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Create Gallery</button>
-    </form>
+    <x-GalleryAlbumForm :galleryAlbum="$album ?? null" :clients="$clients" />
 </div>
 @endsection

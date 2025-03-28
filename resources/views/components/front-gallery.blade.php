@@ -9,13 +9,13 @@
                         <h3>{{ $gallery->title }}</h3> <!-- Display gallery title -->
 
                         <!-- Loop through the images in the gallery -->
-                        @foreach($gallery->images as $image)
-                            <img alt="{{ $gallery->title }}" class="project-image" src="{{ asset($image->image_path) }}">
+                        @foreach($gallery->media as $media)
+                            <img alt="{{ $gallery->title }}" class="project-image" src="{{ asset($media->file_paths) }}">
                             <div class="overlay">
                                 <div class="overlay-inner">
                                     <button class="close">Close X</button>
                                     <div class="hdImgs">
-                                        <img class="squareImg" src="{{ asset($image->image_path) }}">
+                                        <img class="squareImg" src="{{ asset($media->file_paths) }}">
                                     </div>
                                 </div>
                             </div>

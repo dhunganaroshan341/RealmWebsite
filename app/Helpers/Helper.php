@@ -5,6 +5,7 @@ use App\Models\FeaturedService;
 use App\Models\Setting;
 use App\Models\Blog;
 use App\Models\Gallery;
+use App\Models\GalleryAlbum;
 use App\Models\Service;
 
 function getSettings(){
@@ -59,7 +60,7 @@ function response_with_session_and_json($message,$type){
     return response()->json(['message' => $message]);
 }
 function get_galleries() {
-    return Gallery::with('images')->get();
+    return GalleryAlbum::with('media')->get();
 }
 
 

@@ -9,13 +9,13 @@
                         <h3><?php echo e($gallery->title); ?></h3> <!-- Display gallery title -->
 
                         <!-- Loop through the images in the gallery -->
-                        <?php $__currentLoopData = $gallery->images; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $image): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <img alt="<?php echo e($gallery->title); ?>" class="project-image" src="<?php echo e(asset($image->image_path)); ?>">
+                        <?php $__currentLoopData = $gallery->media; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $media): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <img alt="<?php echo e($gallery->title); ?>" class="project-image" src="<?php echo e(asset($media->file_paths)); ?>">
                             <div class="overlay">
                                 <div class="overlay-inner">
                                     <button class="close">Close X</button>
                                     <div class="hdImgs">
-                                        <img class="squareImg" src="<?php echo e(asset($image->image_path)); ?>">
+                                        <img class="squareImg" src="<?php echo e(asset($media->file_paths)); ?>">
                                     </div>
                                 </div>
                             </div>

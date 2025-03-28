@@ -9,6 +9,7 @@ use App\Http\Controllers\admin\ServiceController;
 use App\Http\Controllers\admin\TempImageController;
 use App\Http\Controllers\admin\BlogController as AdminBlogController;
 use App\Http\Controllers\Admin\FaqController as AdminFaqController;
+use App\Http\Controllers\admin\GalleryAlbumController;
 use App\Http\Controllers\admin\PageController;
 use App\Http\Controllers\admin\SettingsController;
 use App\Http\Controllers\Admin\TestimonialController;
@@ -48,7 +49,7 @@ Route::get('/test/testimonials', function () {
 
 
 Route::get('/',[HomeController::class,'index'])->name('home');
-Route::get('static/{id}', function($id) {
+Route::get('page/{id}', function($id) {
     $page = Page::find($id); // Or use `where('id', $id)->first()` if you prefer
     if (!$page) {
         abort(404); // Page not found, handle gracefully
@@ -149,12 +150,15 @@ Route::resource('banner-sliders', BannerSliderController::class);
         // Setting Routes
         Route::get('/settings',[SettingsController::class,'index'])->name('settings.index');
         Route::post('/settings',[SettingsController::class,'save'])->name('settings.save');
+        Route::post('/settings/upload-image', [SettingsController::class, 'uploadImage'])->name('settings.uploadImage');
+
     });
     // testimonial Adminpanel
     Route::apiResource('testimonials',TestimonialController::class);
     Route::get('testimonials/create',[Testimonialcontroller::class,'create'])->name('testimonials.create');
     Route::get('testimonials/edit/{testimonial}',[Testimonialcontroller::class,'edit'])->name('testimonials.edit');
 
+    Route::resource('gallery-albums', GalleryAlbumController::class);
 
     Route::get('galleries', [GalleryController::class, 'index'])->name('galleries.index');
     Route::get('galleries/create', [GalleryController::class, 'create'])->name('galleries.create');

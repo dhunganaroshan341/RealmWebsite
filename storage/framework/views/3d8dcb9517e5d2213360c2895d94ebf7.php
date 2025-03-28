@@ -1,6 +1,4 @@
-@extends('admin.layouts.app')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
     <!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="container-fluid">
@@ -11,7 +9,7 @@
                 <!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
+                        <li class="breadcrumb-item"><a href="<?php echo e(route('admin.dashboard')); ?>">Home</a></li>
                     </ol>
                 </div>
                 <!-- /.col -->
@@ -22,18 +20,18 @@
     </div>
     <!-- /.content-header -->
     <!-- Main content -->
-    <section class="content  h-100">
-        <div class="container-fluid  h-100">
+    <section class="content  h-100"">
+        <div class="container-fluid  h-100"">
             <!-- Small boxes (Stat box) -->
             <div class="row">
                 <div class="col-md-12 ">
-                    <form action="{{ route('service.create') }}" enctype="multipart/form-data" method="post"
+                    <form action="<?php echo e(route('service.create')); ?>" enctype="multipart/form-data" method="post"
                         name="createServiceForm" id="createServiceForm">
                         <div class="card">
                             <div class="card-header">
-                                <a href="{{ route('serviceList') }}" class="btn btn-primary">Back</a>
+                                <a href="<?php echo e(route('serviceList')); ?>" class="btn btn-primary">Back</a>
                             </div>
-                            @csrf
+                            <?php echo csrf_field(); ?>
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="name">Name</label>
@@ -82,22 +80,22 @@
         <!-- /.container-fluid -->
     </section>
     <!-- /.content -->
-@endsection
+<?php $__env->stopSection(); ?>
 
 
-@section('extraJs')
+<?php $__env->startSection('extraJs'); ?>
     <script type="text/javascript">
         $(document).ready(function() {
 
             Dropzone.autoDiscover = false;
             var myDropzone = new Dropzone("#image", {
-                url: "{{ route('service.uploadImage') }}",
+                url: "<?php echo e(route('service.uploadImage')); ?>",
                 paramName: "file",
                 maxFilesize: 2,
                 acceptedFiles: "image/*",
                 addRemoveLinks: true,
                 headers: {
-                    'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                    'X-CSRF-TOKEN': "<?php echo e(csrf_token()); ?>"
                 },
                 success: function(file, response) {
                     $("#image_id").val(response.image_path);
@@ -114,7 +112,7 @@
                 $("button[type='submit']").prop('disabled', true);
 
                 $.ajax({
-                    url: '{{ route('service.create') }}',
+                    url: '<?php echo e(route('service.create')); ?>',
                     type: 'POST',
                     dataType: 'json',
                     data: $("#createServiceForm").serializeArray(),
@@ -149,4 +147,6 @@
             });
         })
     </script>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('admin.layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH I:\applications\laragon\laragon\www\RealmLaravel10Website\resources\views/admin/services/create.blade.php ENDPATH**/ ?>
