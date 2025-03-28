@@ -100,6 +100,8 @@ Route::group(['prefix' => 'admin'], function(){
         Route::get('/services/create',[ServiceController::class,'create'])->name('service.create.form');
 
         Route::post('/services/create',[ServiceController::class,'save'])->name('service.create');
+        Route::post('/service/upload-image', [ServiceController::class, 'uploadImage'])->name('service.uploadImage');
+
 
         Route::post('/temp/upload',[TempImageController::class,'upload'])->name('tempUpload');
 

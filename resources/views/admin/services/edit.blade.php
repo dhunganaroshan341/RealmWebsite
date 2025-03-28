@@ -1,7 +1,6 @@
 @extends('admin.layouts.app')
 
 @section('content')
-
     <!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="container-fluid">
@@ -36,7 +35,8 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="name">Name</label>
-                                    <input type="text" value="{{ $service->name }}" name="name" id="name" class="form-control">
+                                    <input type="text" value="{{ $service->name }}" name="name" id="name"
+                                        class="form-control">
                                     <p class="error name-error"></p>
                                 </div>
 
@@ -55,8 +55,14 @@
                                             </div>
                                         </div>
 
+<<<<<<< HEAD
                                         @if(!empty($service->image))
                                         <img class="img-thumbnail my-4" src="{{ asset('uploads/services/thumb/small/'.$service->image) }}" width="300">
+=======
+                                        @if (!empty($service->image))
+                                            <img class="img-thumbnail my-4" src="{{ asset($service->image) }}"
+                                                width="300">
+>>>>>>> main
                                         @endif
 
 
@@ -70,8 +76,10 @@
                                 <div class="form-group mt-4">
                                     <label for="status">Status</label>
                                     <select name="status" id="status" class="form-control">
-                                        <option value="1" {{ ($service->status == 1) ? 'selected' : '' }}>Active</option>
-                                        <option value="0"  {{ ($service->status == 0) ? 'selected' : '' }}>Block</option>
+                                        <option value="1" {{ $service->status == 1 ? 'selected' : '' }}>Active
+                                        </option>
+                                        <option value="0" {{ $service->status == 0 ? 'selected' : '' }}>Block
+                                        </option>
                                     </select>
                                 </div>
 
@@ -91,6 +99,7 @@
 
 
 @section('extraJs')
+<<<<<<< HEAD
 
 <script type="text/javascript">
     Dropzone.autoDiscover = false;
@@ -132,9 +141,65 @@
                     // Here we will show errors
                     $('.name-error').html(response.errors.name);
                 }
+=======
+    <script type="text/javascript">
+        Dropzone.autoDiscover = false;
+        var myDropzone = new Dropzone("#image", {
+            url: "{{ route('service.uploadImage') }}",
+            paramName: "file",
+            maxFilesize: 2,
+            acceptedFiles: "image/*",
+            addRemoveLinks: true,
+            headers: {
+                'X-CSRF-TOKEN': "{{ csrf_token() }}"
+            },
+            success: function(file, response) {
+                $("#image_id").val(response.image_path);
+            },
+            error: function(file, response) {
+                console.log(response);
+>>>>>>> main
             }
         });
-    });
-</script>
 
+<<<<<<< HEAD
+=======
+
+        $("#editServiceForm").submit(function(event) {
+            event.preventDefault();
+            $("button[type='submit']").prop('disabled', true);
+            $.ajax({
+                url: '{{ route('service.edit.update', $service->id) }}',
+                type: 'POST',
+                dataType: 'json',
+                data: $("#editServiceForm").serializeArray(),
+                success: function(response) {
+                    $("button[type='submit']").prop('disabled', false);
+
+                    if (response.status == true) {
+                        $("#description").summernote("code", "");
+                        $("#editServiceForm").trigger("reset");
+                        Lobibox.notify('success', {
+                            position: 'top right',
+                            msg: response.message
+                        });
+                        // no error
+                    } else {
+                        // Here we will show errors
+                        $('.name-error').html(response.errors.name);
+                    }
+                },
+                error: function(xhr) {
+                    Lobibox.notify('error', {
+                        position: 'top right',
+                        msg: 'Something went wrong!'
+                    });
+                },
+                complete: function() {
+                    $("button[type='submit']").prop('disabled', false);
+                }
+            });
+        });
+    </script>
+>>>>>>> main
 @endsection
