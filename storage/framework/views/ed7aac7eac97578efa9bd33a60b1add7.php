@@ -81,7 +81,7 @@
 
 
 
-<?php $__env->startPush('styles'); ?>
+<?php $__env->startPush('scripts'); ?>
 <script>
     var gallery = document.querySelector('#gallery');
 var getVal = function (elem, style) { return parseInt(window.getComputedStyle(elem).getPropertyValue(style)); };
@@ -120,7 +120,7 @@ gallery.querySelectorAll('.gallery-item').forEach(function (item) {
 
 <?php $__env->stopPush(); ?>
 
-<?php $__env->startPush('scripts'); ?>
+<?php $__env->startPush('styles'); ?>
 <style>
     body {
   background-color: #eee;

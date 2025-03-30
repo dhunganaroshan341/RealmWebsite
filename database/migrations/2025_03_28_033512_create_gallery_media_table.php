@@ -8,7 +8,7 @@
          Schema::create('gallery_media', function (Blueprint $table) {
              $table->id();
              $table->unsignedBigInteger('gallery_album_id'); // Links to an album
-             $table->json('file_paths'); // Stores multiple file paths (JSON)
+             $table->string('file_path'); // Stores multiple file paths (JSON)
              $table->timestamps();
 
              // Foreign key to gallery_albums table

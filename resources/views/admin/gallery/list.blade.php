@@ -50,8 +50,8 @@
                     <td>{{ $gallery->title }}</td>
                     <td>{{ $gallery->media->count() }}</td>
                     <td>
-                        <a href="{{ route('galleries.edit', $gallery->id) }}" class="btn btn-info btn-sm">Edit</a>
-                        <form action="{{ route('galleries.destroy', $gallery->id) }}" method="POST" style="display:inline-block;">
+                        <a href="{{ route('gallery-albums.edit', $gallery->id) }}" class="btn btn-info btn-sm">Edit</a>
+                        <form action="{{ route('gallery-albums.destroy', $gallery->id) }}" method="POST" style="display:inline-block;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger btn-sm">Delete</button>

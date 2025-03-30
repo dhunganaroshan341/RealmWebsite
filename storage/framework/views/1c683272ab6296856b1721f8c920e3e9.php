@@ -50,8 +50,8 @@
                     <td><?php echo e($gallery->title); ?></td>
                     <td><?php echo e($gallery->media->count()); ?></td>
                     <td>
-                        <a href="<?php echo e(route('galleries.edit', $gallery->id)); ?>" class="btn btn-info btn-sm">Edit</a>
-                        <form action="<?php echo e(route('galleries.destroy', $gallery->id)); ?>" method="POST" style="display:inline-block;">
+                        <a href="<?php echo e(route('gallery-albums.edit', $gallery->id)); ?>" class="btn btn-info btn-sm">Edit</a>
+                        <form action="<?php echo e(route('gallery-albums.destroy', $gallery->id)); ?>" method="POST" style="display:inline-block;">
                             <?php echo csrf_field(); ?>
                             <?php echo method_field('DELETE'); ?>
                             <button type="submit" class="btn btn-danger btn-sm">Delete</button>

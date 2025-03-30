@@ -7,6 +7,7 @@ use App\Models\Blog;
 use App\Models\Gallery;
 use App\Models\GalleryAlbum;
 use App\Models\Service;
+use App\Services\PageBannerService;
 
 function getSettings(){
     return Setting::first();
@@ -63,6 +64,28 @@ function get_galleries() {
     return GalleryAlbum::with('media')->get();
 }
 
+function get_cta(){
+    $cta_title = Setting::first()->pluck('cta_title');
+    $cta_image = Setting::first()->pluck('cta_image');
+    $cta_link = Setting::first()->pluck('cta_link');
+    $cta_description = Setting::first()->pluck('cta_description');
+    $cta = [
+        'title'=>$cta_title,
+        'description'=>$cta_description,
+        'cta_link'=>$cta_link,
+        'cta_image'=>$cta_image,
+    ];
+    return $cta;
+
+}
+
+
+// updating page banner
+function update_page_banner($page,$image){
+    $result = PageBannerService::UpdateBanner($page,$image);
+    return $result;
+
+}
 
 
 ?>

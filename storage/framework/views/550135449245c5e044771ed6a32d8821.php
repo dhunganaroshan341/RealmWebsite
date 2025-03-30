@@ -24,25 +24,26 @@
 
 
 </section>
-<?php if (isset($component)) { $__componentOriginal861187723392569f4df7cda6d2528aeb = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginal861187723392569f4df7cda6d2528aeb = $attributes; } ?>
-<?php $component = App\View\Components\DynamicGallery::resolve([] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
-<?php $component->withName('dynamic-gallery'); ?>
+
+<?php if (isset($component)) { $__componentOriginalf57261881686e3772aebb3356831df08 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginalf57261881686e3772aebb3356831df08 = $attributes; } ?>
+<?php $component = App\View\Components\GalleryTemplate3::resolve([] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component->withName('gallery-template3'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(App\View\Components\DynamicGallery::class))->getConstructor()): ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(App\View\Components\GalleryTemplate3::class))->getConstructor()): ?>
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
 <?php $component->withAttributes([]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
-<?php if (isset($__attributesOriginal861187723392569f4df7cda6d2528aeb)): ?>
-<?php $attributes = $__attributesOriginal861187723392569f4df7cda6d2528aeb; ?>
-<?php unset($__attributesOriginal861187723392569f4df7cda6d2528aeb); ?>
+<?php if (isset($__attributesOriginalf57261881686e3772aebb3356831df08)): ?>
+<?php $attributes = $__attributesOriginalf57261881686e3772aebb3356831df08; ?>
+<?php unset($__attributesOriginalf57261881686e3772aebb3356831df08); ?>
 <?php endif; ?>
-<?php if (isset($__componentOriginal861187723392569f4df7cda6d2528aeb)): ?>
-<?php $component = $__componentOriginal861187723392569f4df7cda6d2528aeb; ?>
-<?php unset($__componentOriginal861187723392569f4df7cda6d2528aeb); ?>
+<?php if (isset($__componentOriginalf57261881686e3772aebb3356831df08)): ?>
+<?php $component = $__componentOriginalf57261881686e3772aebb3356831df08; ?>
+<?php unset($__componentOriginalf57261881686e3772aebb3356831df08); ?>
 <?php endif; ?>
 <?php $__env->stopSection(); ?>
 

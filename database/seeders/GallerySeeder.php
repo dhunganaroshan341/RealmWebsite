@@ -36,7 +36,7 @@ class GallerySeeder extends Seeder
                 // Save each image in the images table
                 GalleryMedia::create([
                     'gallery_album_id' => $gallery->id,
-                    'file_paths' => $imagePath,
+                    'file_path' => $imagePath,
                 ]);
             }
         }

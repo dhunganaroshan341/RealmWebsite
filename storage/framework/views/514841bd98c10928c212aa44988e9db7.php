@@ -142,7 +142,7 @@
                             </a>
                         </li>
                       <li class="nav-item">
-                            <a href="<?php echo e(route('galleries.index')); ?>"
+                            <a href="<?php echo e(route('gallery-albums.index')); ?>"
                                 class="nav-link <?php echo e(Request::is('admin/galleries*') ? 'active' : ''); ?>">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>galleries</p>

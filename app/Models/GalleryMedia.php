@@ -9,9 +9,9 @@ class GalleryMedia extends Model {
 
     protected $fillable = ['gallery_album_id', 'file_paths'];
 
-    protected $casts = [
-        'file_paths' => 'array', // Automatically converts JSON to array
-    ];
+    // protected $casts = [
+    //     'file_paths' => 'array', // Automatically converts JSON to array
+    // ];
 
     // Relationship: Each media entry belongs to one album
     public function album() {

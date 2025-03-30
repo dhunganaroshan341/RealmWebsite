@@ -14,6 +14,32 @@ class GalleryAlbumController extends Controller
      * Display a listing of the resource.
      */
     protected $galleries,$clients;
+
+    public function uploadImage(Request $request)
+    {
+        $request->validate([
+            'file' => 'required',
+            'file.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $imagePaths = [];
+
+        if ($request->hasFile('file')) {
+            foreach ($request->file('file') as $file) {
+                $filename = time() . '_' . $file->getClientOriginalName();
+                $destinationPath = public_path('uploads/gallery/thumb/large');
+                $file->move($destinationPath, $filename);
+
+                $imagePaths[] = 'uploads/gallery/thumb/large/' . $filename;
+            }
+        }
+
+        return response()->json([
+            'success' => true,
+            'image_path' => $imagePaths, // Return all uploaded file paths
+        ]);
+    }
+
     public function __construct()
     {
         $this->galleries = GalleryAlbum::with('media')->get();
@@ -37,7 +63,7 @@ class GalleryAlbumController extends Controller
     public function create()
     {
         $clients = Client::all();
-        return view('admin.gallery-albums.create', compact('clients'));
+        return view('admin.gallery.list', compact('clients'));
     }
 
     /**
@@ -45,6 +71,7 @@ class GalleryAlbumController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request->all());
         $request->validate([
             'title' => 'required|string|max:255',
             'type' => 'required|in:image,video,pdf,other',
@@ -78,7 +105,8 @@ class GalleryAlbumController extends Controller
     public function edit(GalleryAlbum $galleryAlbum)
     {
         $clients = Client::all();
-        return view('admin.gallery-albums.edit', compact('galleryAlbum', 'clients'));
+
+        return view('admin.gallery.list', compact('galleryAlbum', 'clients'));
     }
 
     /**
@@ -101,7 +129,7 @@ class GalleryAlbumController extends Controller
             if ($galleryAlbum->file_path) {
                 Storage::disk('public')->delete($galleryAlbum->file_path);
             }
-            $data['file_paths'] = $request->file('file')->store('gallery-albums', 'public');
+            $data['file_path'] = $request->file('file')->store('gallery-albums', 'public');
         }
 
         $galleryAlbum->update($data);

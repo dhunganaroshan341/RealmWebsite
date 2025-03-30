@@ -142,7 +142,7 @@
                             </a>
                         </li>
                       <li class="nav-item">
-                            <a href="{{ route('galleries.index') }}"
+                            <a href="{{ route('gallery-albums.index') }}"
                                 class="nav-link {{ Request::is('admin/galleries*') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>galleries</p>

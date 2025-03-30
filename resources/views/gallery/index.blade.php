@@ -6,7 +6,8 @@
 {{-- the workable gallery previous ones is in temporary.txt file  --}}
 
 </section>
-<x-dynamic-gallery/>
+{{-- <x-dynamic-gallery/> --}}
+<x-gallery-template3/>
 @endsection
 
 @push('scripts')

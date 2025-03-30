@@ -15,6 +15,7 @@ return new class extends Migration
             //
             $table->longText('cta_title')->nullable();
             $table->longText('cta_description')->nullable();
+            $table->string('cta_image')->nullable();
             $table->longText('cta_link')->nullable();
         });
     }
@@ -28,6 +29,7 @@ return new class extends Migration
             //
             $table->dropColumn('cta_title');
             $table->dropColumn('cta_description');
+            $table->dropColumn('cta_image');
             $table->dropColumn('cta_link');
         });
     }

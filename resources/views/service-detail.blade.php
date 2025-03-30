@@ -1,4 +1,8 @@
 @extends('layouts.app')
+@php
+
+    $cta = get_cta();
+@endphp
 
 @section('content')
 <section class="hero-small">
@@ -11,13 +15,13 @@
                         <div class="col-md-12">
                             <div class="block text-center">
                                 <span class="text-uppercase text-sm letter-spacing"></span>
-                                <h1 class="mb-3 mt-3 text-center">{{ $service->name }}</h1>                                                                                                            
+                                <h1 class="mb-3 mt-3 text-center">{{ $service->name }}</h1>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>                
+        </div>
     </div>
 </section>
 
@@ -29,17 +33,17 @@
             <div class="col-md-6 align-items-center d-flex">
                 <div class="about-block">
                     <h1 class="title-color">{{ $service->name }}</h1>
-                    
+
                     {!! $service->description !!}
 
                 </div>
             </div>
             <div class="col-md-6">
                 @if(!empty($service->image))
-                <div class="image-red-background">                   
-                    <img src="{{ asset('uploads/services/thumb/large/'.$service->image) }}" alt="" class="w-100">                   
+                <div class="image-red-background">
+                    <img src="{{ asset('uploads/services/thumb/large/'.$service->image) }}" alt="" class="w-100">
                 </div>
-                @endif                
+                @endif
             </div>
         </div>
     </div>
@@ -49,9 +53,9 @@
     <div class="hero-background-overlay"></div>
     <div class="container">
        <div class="help-container">
-            <h1 class="title">Do you need help?</h1>
-            <p class="card-text mt-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi ipsum, odit velit exercitationem praesentium error id iusto dolorem expedita nostrum eius atque? Aliquam ab reprehenderit animi sapiente quasi, voluptate dolorum?</p>
-            <a href="#" class="btn btn-primary mt-3">Call Us Now <i class="fa-solid fa-angle-right"></i></a>
+            <h1 class="title">{{ $cta->cta_title??'Do you need help?' }}</h1>
+            <p class="card-text mt-3">{{ $cta->cta_description??'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi ipsum, odit velit exercitationem praesentium error id iusto dolorem expedita nostrum eius atque? Aliquam ab reprehenderit animi sapiente quasi, voluptate dolorum?' }}</p>
+            <a href="{{ $cta->cta_link }}" class="btn btn-primary mt-3">Reach Out <i class="fa-solid fa-angle-right"></i></a>
        </div>
     </div>
 </section>

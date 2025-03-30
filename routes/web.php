@@ -19,6 +19,7 @@ use App\Http\Controllers\FaqController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ServicesController;
 use App\Models\Page;
+use App\Services\PageBannerService;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -146,6 +147,8 @@ Route::group(['prefix' => 'admin'], function(){
 
         Route::post('/page/deleteImage',[PageController::class,'deleteImage'])->name('page.deleteImage');
 // banner slider section
+Route::get('page-banners',[PageBannerService::class,'index'])->name('pageBanners.index');
+Route::post('page-banners/{page}',[PageBannerService::class,'updateOrCreate'])->name('pageBanners.store');
 Route::resource('banner-sliders', BannerSliderController::class);
         // Setting Routes
         Route::get('/settings',[SettingsController::class,'index'])->name('settings.index');
@@ -159,12 +162,13 @@ Route::resource('banner-sliders', BannerSliderController::class);
     Route::get('testimonials/edit/{testimonial}',[Testimonialcontroller::class,'edit'])->name('testimonials.edit');
 
     Route::resource('gallery-albums', GalleryAlbumController::class);
+    Route::post('gallery-albums/upload-image', [GalleryAlbumController::class,'uploadImage'])->name('gallery-albums.uploadImage');
 
-    Route::get('galleries', [GalleryController::class, 'index'])->name('galleries.index');
-    Route::get('galleries/create', [GalleryController::class, 'create'])->name('galleries.create');
-    Route::post('galleries', [GalleryController::class, 'store'])->name('galleries.store');
-    Route::get('galleries/{id}/edit', [GalleryController::class, 'edit'])->name('galleries.edit');
-    Route::put('galleries/{id}', [GalleryController::class, 'update'])->name('galleries.update');
-    Route::delete('galleries/{id}', [GalleryController::class, 'destory'])->name('galleries.destroy');
+    // Route::get('galleries', [GalleryController::class, 'index'])->name('galleries.index');
+    // Route::get('galleries/create', [GalleryController::class, 'create'])->name('galleries.create');
+    // Route::post('galleries', [GalleryController::class, 'store'])->name('galleries.store');
+    // Route::get('galleries/{id}/edit', [GalleryController::class, 'edit'])->name('galleries.edit');
+    // Route::put('galleries/{id}', [GalleryController::class, 'update'])->name('galleries.update');
+    // Route::delete('galleries/{id}', [GalleryController::class, 'destory'])->name('galleries.destroy');
 
 });
